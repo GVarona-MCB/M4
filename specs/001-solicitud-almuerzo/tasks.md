@@ -243,18 +243,18 @@ rechazado; cambiar correo de proveedor → afecta envíos; eliminar proveedor co
 
 ### Tests for User Story 6
 
-- [ ] T064 [P] [US6] e2e de usuarios (CRUD, anti auto-bloqueo, revocación, **rechazo de contraseña < 6** [FR-030], **unicidad de email case-insensitive** [FR-001/D1]) y proveedores (CRUD, bloqueo de borrado con datos) en `apps/api/test/admin.e2e-spec.ts`
+- [X] T064 [P] [US6] e2e de usuarios (CRUD, anti auto-bloqueo, revocación, **rechazo de contraseña < 6** [FR-030], **unicidad de email case-insensitive** [FR-001/D1]) y proveedores (CRUD, bloqueo de borrado con datos) en `apps/api/test/admin.e2e-spec.ts`
 
 ### Implementation for User Story 6
 
-- [ ] T065 [US6] Módulo Usuarios: CRUD + rol + activar/desactivar + guarda anti auto-bloqueo + fijar/restablecer contraseña en `apps/api/src/users/users.service.ts`
-- [ ] T066 [US6] Wiring de revocación de sesión (desactivar/eliminar/cambio de rol/reset) → `session.service.revoke()` en `apps/api/src/users/users.service.ts`
-- [ ] T067 [US6] Endpoints de usuarios (`/users`) con guards ADMIN en `apps/api/src/users/users.controller.ts`
-- [ ] T068 [US6] Módulo Proveedores: CRUD + bloqueo de borrado si hay menús/pedidos asociados en `apps/api/src/providers/providers.service.ts`
-- [ ] T069 [US6] Endpoints de proveedores (`/providers`) con guards ADMIN en `apps/api/src/providers/providers.controller.ts`
-- [ ] T070 [US6] Normalización/unicidad case-insensitive del email + mín. 6 en DTOs en `apps/api/src/users/dto/`
-- [ ] T071 [P] [US6] Web: página admin de usuarios en `apps/web/src/app/admin/usuarios/page.tsx`
-- [ ] T072 [P] [US6] Web: página admin de proveedores en `apps/web/src/app/admin/proveedores/page.tsx`
+- [X] T065 [US6] Módulo Usuarios: CRUD + rol + activar/desactivar + guarda anti auto-bloqueo + fijar/restablecer contraseña en `apps/api/src/users/users.service.ts`
+- [X] T066 [US6] Wiring de revocación de sesión (desactivar/eliminar/cambio de rol/reset) → `session.service.revoke()` en `apps/api/src/users/users.service.ts`
+- [X] T067 [US6] Endpoints de usuarios (`/users`) con guards ADMIN en `apps/api/src/users/users.controller.ts`
+- [X] T068 [US6] Módulo Proveedores: CRUD + bloqueo de borrado si hay menús/pedidos asociados en `apps/api/src/providers/providers.service.ts`
+- [X] T069 [US6] Endpoints de proveedores (`/providers`) con guards ADMIN en `apps/api/src/providers/providers.controller.ts`
+- [X] T070 [US6] Normalización/unicidad case-insensitive del email + mín. 6 en DTOs en `apps/api/src/users/dto/`
+- [X] T071 [P] [US6] Web: página admin de usuarios en `apps/web/src/app/admin/usuarios/page.tsx`
+- [X] T072 [P] [US6] Web: página admin de proveedores en `apps/web/src/app/admin/proveedores/page.tsx`
 
 **Checkpoint**: Todas las historias (US1–US8) funcionan de forma independiente.
 
