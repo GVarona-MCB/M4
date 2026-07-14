@@ -79,17 +79,17 @@ confirmar → 1 pedido `PENDIENTE`; segundo intento, fin de semana, 13:00 y acom
 ### Tests for User Story 1
 
 - [ ] T025 [P] [US1] e2e de `POST/PATCH/DELETE /orders/me`: feliz + triste (fin de semana, ≥13:00, 2º pedido, acompañamiento faltante, sin menú, **editar/anular pedido `ENVIADO` rechazado** [FR-018]) en `apps/api/test/orders.e2e-spec.ts`
-- [ ] T026 [P] [US1] unit de reglas de `OrdersService` (unicidad, corte, acompañamiento, ≥1 menú) en `apps/api/src/orders/orders.service.spec.ts`
+- [X] T026 [P] [US1] unit de reglas de `OrdersService` (unicidad, corte, acompañamiento, ≥1 menú) en `apps/api/src/orders/orders.service.spec.ts`
 
 ### Implementation for User Story 1
 
-- [ ] T027 [US1] Lado lectura del menú: `GET /menu?fecha=` agrupado por proveedor (solo con menú) en `apps/api/src/menu/menu.controller.ts` + `menu.read.service.ts`
-- [ ] T028 [P] [US1] DTOs de pedido con validación (acompañamiento trim/no-vacío/≤100) en `apps/api/src/orders/dto/`
-- [ ] T029 [US1] `OrdersService` con reglas (índice único `(usuarioId, fecha)`, fin de semana, corte 13:00, acompañamiento requerido, ≥1 menú, transacción) en `apps/api/src/orders/orders.service.ts`
-- [ ] T030 [US1] Endpoints `GET/POST/PATCH/DELETE /orders/me` en `apps/api/src/orders/orders.controller.ts`
-- [ ] T031 [P] [US1] Web: página `pedir` (menú por proveedor, selección, acompañamiento, confirmar) en `apps/web/src/app/pedir/page.tsx`
-- [ ] T032 [P] [US1] Web: editar/anular el propio pedido `PENDIENTE` en `apps/web/src/app/pedir/`
-- [ ] T033 [US1] Conectar mensajes de error (409/422) a la UI de pedido
+- [X] T027 [US1] Lado lectura del menú: `GET /menu?fecha=` agrupado por proveedor (solo con menú) en `apps/api/src/menu/menu.controller.ts` + `menu.read.service.ts`
+- [X] T028 [P] [US1] DTOs de pedido con validación (acompañamiento trim/no-vacío/≤100) en `apps/api/src/orders/dto/`
+- [X] T029 [US1] `OrdersService` con reglas (índice único `(usuarioId, fecha)`, fin de semana, corte 13:00, acompañamiento requerido, ≥1 menú, transacción) en `apps/api/src/orders/orders.service.ts`
+- [X] T030 [US1] Endpoints `GET/POST/PATCH/DELETE /orders/me` en `apps/api/src/orders/orders.controller.ts`
+- [X] T031 [P] [US1] Web: página `pedir` (menú por proveedor, selección, acompañamiento, confirmar) en `apps/web/src/app/pedir/page.tsx`
+- [X] T032 [P] [US1] Web: editar/anular el propio pedido `PENDIENTE` en `apps/web/src/app/pedir/`
+- [X] T033 [US1] Conectar mensajes de error (409/422) a la UI de pedido
 
 **Checkpoint**: US1 funcional y testeable de forma independiente (MVP).
 

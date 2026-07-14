@@ -8,12 +8,16 @@ import { RolesGuard } from './auth/roles.guard';
 import { CsrfGuard } from './auth/csrf.guard';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { validateEnv } from './config/env.validation';
+import { MenuModule } from './menu/menu.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, validate: validateEnv }),
     PrismaModule,
     AuthModule,
+    MenuModule,
+    OrdersModule,
   ],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },

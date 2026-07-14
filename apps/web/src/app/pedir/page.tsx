@@ -1,0 +1,149 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { apiFetch, ensureCsrf, type ApiError } from '@/lib/api-client';
+
+interface MenuOption {
+  id: string;
+  descripcion: string;
+  llevaAcompanamiento: boolean;
+}
+interface MenuGroup {
+  proveedorId: string;
+  proveedorNombre: string;
+  opciones: MenuOption[];
+}
+interface Pedido {
+  id: string;
+  opcionPlatoId: string;
+  acompanamiento: string | null;
+  estado: 'PENDIENTE' | 'ENVIADO';
+}
+
+export default function PedirPage() {
+  const [menu, setMenu] = useState<MenuGroup[]>([]);
+  const [pedido, setPedido] = useState<Pedido | null>(null);
+  const [opcionId, setOpcionId] = useState('');
+  const [acompanamiento, setAcompanamiento] = useState('');
+  const [msg, setMsg] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  const opcionElegida = menu.flatMap((g) => g.opciones).find((o) => o.id === opcionId);
+
+  async function load(): Promise<void> {
+    setError(null);
+    try {
+      const [m, p] = await Promise.all([
+        apiFetch<MenuGroup[]>('/menu'),
+        apiFetch<Pedido | null>('/orders/me'),
+      ]);
+      setMenu(m);
+      setPedido(p);
+      if (p) {
+        setOpcionId(p.opcionPlatoId);
+        setAcompanamiento(p.acompanamiento ?? '');
+      }
+    } catch (err) {
+      setError((err as ApiError).message);
+    }
+  }
+
+  useEffect(() => {
+    void load();
+  }, []);
+
+  async function submit(method: 'POST' | 'PATCH'): Promise<void> {
+    setError(null);
+    setMsg(null);
+    try {
+      await ensureCsrf();
+      await apiFetch('/orders/me', {
+        method,
+        body: JSON.stringify({ opcionPlatoId: opcionId, acompanamiento: acompanamiento || undefined }),
+      });
+      setMsg('Pedido guardado.');
+      await load();
+    } catch (err) {
+      setError((err as ApiError).message);
+    }
+  }
+
+  async function anular(): Promise<void> {
+    setError(null);
+    setMsg(null);
+    try {
+      await ensureCsrf();
+      await apiFetch('/orders/me', { method: 'DELETE' });
+      setMsg('Pedido anulado.');
+      setPedido(null);
+      setOpcionId('');
+      setAcompanamiento('');
+      await load();
+    } catch (err) {
+      setError((err as ApiError).message);
+    }
+  }
+
+  const yaEnviado = pedido?.estado === 'ENVIADO';
+
+  return (
+    <main style={{ maxWidth: 560, margin: '2rem auto', fontFamily: 'system-ui' }}>
+      <h1>Mi pedido de hoy</h1>
+      {menu.length === 0 && <p>No hay menú disponible para hoy.</p>}
+
+      {menu.map((g) => (
+        <fieldset key={g.proveedorId} style={{ marginBottom: 12 }}>
+          <legend>
+            <strong>{g.proveedorNombre}</strong>
+          </legend>
+          {g.opciones.map((o) => (
+            <label key={o.id} style={{ display: 'block' }}>
+              <input
+                type="radio"
+                name="opcion"
+                value={o.id}
+                checked={opcionId === o.id}
+                disabled={yaEnviado}
+                onChange={() => setOpcionId(o.id)}
+              />{' '}
+              {o.descripcion}
+              {o.llevaAcompanamiento ? ' (con acompañamiento)' : ''}
+            </label>
+          ))}
+        </fieldset>
+      ))}
+
+      {opcionElegida?.llevaAcompanamiento && (
+        <label style={{ display: 'block', marginBottom: 12 }}>
+          Acompañamiento
+          <input
+            type="text"
+            maxLength={100}
+            value={acompanamiento}
+            disabled={yaEnviado}
+            onChange={(e) => setAcompanamiento(e.target.value)}
+            style={{ display: 'block', width: '100%' }}
+          />
+        </label>
+      )}
+
+      {msg && <p style={{ color: 'green' }}>{msg}</p>}
+      {error && <p style={{ color: 'crimson' }}>{error}</p>}
+
+      {yaEnviado ? (
+        <p>Tu pedido ya fue enviado al proveedor y no puede modificarse.</p>
+      ) : pedido ? (
+        <>
+          <button onClick={() => void submit('PATCH')} disabled={!opcionId}>
+            Actualizar pedido
+          </button>{' '}
+          <button onClick={() => void anular()}>Anular pedido</button>
+        </>
+      ) : (
+        <button onClick={() => void submit('POST')} disabled={!opcionId}>
+          Confirmar pedido
+        </button>
+      )}
+    </main>
+  );
+}
