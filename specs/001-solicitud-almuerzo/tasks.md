@@ -48,21 +48,21 @@ código (`*.spec.ts`). Prisma en `apps/api/prisma/`.
 
 **⚠️ CRITICAL**: Ninguna historia puede empezar hasta completar esta fase.
 
-- [ ] T010 Definir el esquema Prisma completo (entidades + enums de data-model.md) en `apps/api/prisma/schema.prisma`
-- [ ] T011 Crear la migración inicial y generar Prisma Client (`prisma migrate dev`) en `apps/api/prisma/migrations/`
-- [ ] T012 [P] Crear módulo/servicio Prisma (wrapper de conexión) en `apps/api/src/prisma/prisma.service.ts`
-- [ ] T013 Crear seed (`db:seed`): Admin, Secretaría, Empleado, N proveedores y un menú del día de ejemplo en `apps/api/prisma/seed.ts`
-- [ ] T014 [P] Módulo de configuración (`@nestjs/config`) con validación de entorno en `apps/api/src/config/`
-- [ ] T015 [P] Utilidad de zona horaria GMT-3 (`isFinDeSemana`, `esDespuesDeCorte(13:00)`, `diaOperativo`) en `apps/api/src/common/time/tz.util.ts`
-- [ ] T016 [P] Filtro global de excepciones (sin filtrar detalles internos) + logger de seguridad en `apps/api/src/common/filters/`
-- [ ] T017 [P] Utilidad de hash de contraseñas (argon2, mín. 6) en `apps/api/src/common/crypto/password.util.ts`
-- [ ] T018 Servicio de sesión (crear/regenerar id/validar/deslizar/revocar) sobre tabla `Session` en `apps/api/src/auth/session.service.ts`
-- [ ] T019 Guard de autenticación (cookie de sesión → usuario, expiración deslizante 15 min) en `apps/api/src/auth/auth.guard.ts`
-- [ ] T020 [P] Guard de roles + decorador `@Roles()` en `apps/api/src/auth/roles.guard.ts`
-- [ ] T021 [P] Middleware/guard CSRF (token, header `x-csrf-token`) en `apps/api/src/auth/csrf.guard.ts`
-- [ ] T022 Endpoints de auth: `GET /auth/csrf`, `POST /auth/login` (error genérico anti-enumeración), `POST /auth/logout`, `GET /auth/me` en `apps/api/src/auth/auth.controller.ts`
-- [ ] T023 [P] Cliente HTTP web con `credentials: 'include'` + header CSRF + contexto de auth en `apps/web/src/lib/api-client.ts`
-- [ ] T024 [P] Layout base + página de login + protección de rutas en `apps/web/src/app/(auth)/`
+- [X] T010 Definir el esquema Prisma completo (entidades + enums de data-model.md) en `apps/api/prisma/schema.prisma`
+- [X] T011 Crear la migración inicial y generar Prisma Client (`prisma migrate dev`) en `apps/api/prisma/migrations/`
+- [X] T012 [P] Crear módulo/servicio Prisma (wrapper de conexión) en `apps/api/src/prisma/prisma.service.ts`
+- [X] T013 Crear seed (`db:seed`): Admin, Secretaría, Empleado, N proveedores y un menú del día de ejemplo en `apps/api/prisma/seed.ts`
+- [X] T014 [P] Módulo de configuración (`@nestjs/config`) con validación de entorno en `apps/api/src/config/`
+- [X] T015 [P] Utilidad de zona horaria GMT-3 (`isFinDeSemana`, `esDespuesDeCorte(13:00)`, `diaOperativo`) en `apps/api/src/common/time/tz.util.ts`
+- [X] T016 [P] Filtro global de excepciones (sin filtrar detalles internos) + logger de seguridad en `apps/api/src/common/filters/`
+- [X] T017 [P] Utilidad de hash de contraseñas (argon2, mín. 6) en `apps/api/src/common/crypto/password.util.ts`
+- [X] T018 Servicio de sesión (crear/regenerar id/validar/deslizar/revocar) sobre tabla `Session` en `apps/api/src/auth/session.service.ts`
+- [X] T019 Guard de autenticación (cookie de sesión → usuario, expiración deslizante 15 min) en `apps/api/src/auth/auth.guard.ts`
+- [X] T020 [P] Guard de roles + decorador `@Roles()` en `apps/api/src/auth/roles.guard.ts`
+- [X] T021 [P] Middleware/guard CSRF (token, header `x-csrf-token`) en `apps/api/src/auth/csrf.guard.ts`
+- [X] T022 Endpoints de auth: `GET /auth/csrf`, `POST /auth/login` (error genérico anti-enumeración), `POST /auth/logout`, `GET /auth/me` en `apps/api/src/auth/auth.controller.ts`
+- [X] T023 [P] Cliente HTTP web con `credentials: 'include'` + header CSRF + contexto de auth en `apps/web/src/lib/api-client.ts`
+- [X] T024 [P] Layout base + página de login + protección de rutas en `apps/web/src/app/(auth)/`
 
 **Checkpoint**: Fundación lista — se puede empezar cualquier historia (con datos del seed).
 

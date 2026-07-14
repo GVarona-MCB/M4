@@ -1,0 +1,126 @@
+// Modelo único de datos (Principio VI). Timestamps en UTC; reglas horarias en GMT-3.
+// Ver specs/001-solicitud-almuerzo/data-model.md
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Rol {
+  ADMIN
+  SECRETARIA
+  EMPLEADO
+}
+
+enum EstadoPedido {
+  PENDIENTE
+  ENVIADO
+}
+
+enum TipoEnvio {
+  PRINCIPAL
+  ADICIONAL
+}
+
+enum TipoDepuracion {
+  AUTOMATICA
+  MANUAL
+}
+
+enum ResultadoDepuracion {
+  EXITO
+  FALLO
+}
+
+model Usuario {
+  id           String    @id @default(uuid())
+  email        String    @unique // normalizado a minúsculas + trim en la app (invariante); ver data-model D1
+  nombre       String
+  passwordHash String
+  rol          Rol
+  activo       Boolean   @default(true)
+  pedidos      Pedido[]
+  sesiones     Session[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Proveedor {
+  id            String        @id @default(uuid())
+  nombre        String
+  correoDestino String
+  opciones      OpcionPlato[]
+  pedidos       Pedido[]
+  envios        Envio[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model OpcionPlato {
+  id                  String    @id @default(uuid())
+  proveedor           Proveedor @relation(fields: [proveedorId], references: [id])
+  proveedorId         String
+  fecha               DateTime  @db.Date
+  descripcion         String
+  llevaAcompanamiento Boolean
+  pedidos             Pedido[]
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  @@index([proveedorId, fecha])
+}
+
+model Pedido {
+  id             String       @id @default(uuid())
+  usuario        Usuario      @relation(fields: [usuarioId], references: [id])
+  usuarioId      String
+  opcionPlato    OpcionPlato  @relation(fields: [opcionPlatoId], references: [id])
+  opcionPlatoId  String
+  proveedor      Proveedor    @relation(fields: [proveedorId], references: [id])
+  proveedorId    String
+  acompanamiento String?      @db.VarChar(100)
+  fecha          DateTime     @db.Date
+  estado         EstadoPedido @default(PENDIENTE)
+  enviadoAt      DateTime?
+  envio          Envio?       @relation(fields: [envioId], references: [id])
+  envioId        String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([usuarioId, fecha]) // un pedido por usuario por día (FR-017)
+  @@index([proveedorId, fecha, estado])
+}
+
+model Envio {
+  id          String    @id @default(uuid())
+  proveedor   Proveedor @relation(fields: [proveedorId], references: [id])
+  proveedorId String
+  tipo        TipoEnvio
+  enviadoAt   DateTime  @default(now())
+  pedidos     Pedido[]
+  createdAt   DateTime  @default(now())
+}
+
+model RegistroDepuracion {
+  id          String              @id @default(uuid())
+  tipo        TipoDepuracion
+  resultado   ResultadoDepuracion
+  intentos    Int                 @default(1)
+  detalle     String?
+  ejecutadoAt DateTime            @default(now())
+}
+
+model Session {
+  id             String   @id // token opaco de alta entropía; va en cookie HttpOnly
+  usuario        Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  usuarioId      String
+  createdAt      DateTime @default(now())
+  lastActivityAt DateTime @default(now())
+  expiresAt      DateTime
+
+  @@index([usuarioId])
+}
