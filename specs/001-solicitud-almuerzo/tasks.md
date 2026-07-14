@@ -179,13 +179,13 @@ nuevos, "PEDIDO ADICIONAL" en el asunto.
 
 ### Tests for User Story 3
 
-- [ ] T053 [P] [US3] e2e de tardíos (<13:00), corte 13:00 (solo empleado), y adicional (solo nuevos + asunto) en `apps/api/test/late-orders.e2e-spec.ts`
+- [X] T053 [P] [US3] e2e de tardíos (<13:00), corte 13:00 (solo empleado), y adicional (solo nuevos + asunto) en `apps/api/test/late-orders.e2e-spec.ts`
 
 ### Implementation for User Story 3
 
-- [ ] T054 [US3] Reforzar corte 13:00 para acciones del empleado, dejando envío/baja de Secretaría disponibles en `apps/api/src/orders/orders.service.ts`
-- [ ] T055 [US3] Marcado "PEDIDO ADICIONAL" en el asunto del correo cuando el `Envio` es `ADICIONAL` (la detección principal/adicional ya vive en T038) en `apps/api/src/consolidation/consolidation.service.ts` y `apps/api/src/mail/mail.service.ts`
-- [ ] T056 [P] [US3] Web: mensajes de cierre de horario + acción de envío adicional en `apps/web/src/app/secretaria/consolidado/`
+- [X] T054 [US3] Reforzar corte 13:00 para acciones del empleado, dejando envío/baja de Secretaría disponibles en `apps/api/src/orders/orders.service.ts`
+- [X] T055 [US3] Marcado "PEDIDO ADICIONAL" en el asunto del correo cuando el `Envio` es `ADICIONAL` (la detección principal/adicional ya vive en T038) en `apps/api/src/consolidation/consolidation.service.ts` y `apps/api/src/mail/mail.service.ts`
+- [X] T056 [P] [US3] Web: mensajes de cierre de horario + acción de envío adicional en `apps/web/src/app/secretaria/consolidado/`
 
 **Checkpoint**: US3 funcional sobre US1/US2 sin romperlas.
 
