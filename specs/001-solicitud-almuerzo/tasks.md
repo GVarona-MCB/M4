@@ -106,15 +106,15 @@ marcándolos como enviados.
 ### Tests for User Story 2
 
 - [ ] T034 [P] [US2] e2e de consolidación y envío (por proveedor, marca `ENVIADO`, fallo SMTP sin marcar, aislamiento, **envío sin pendientes = no-op: sin correo ni `Envio`**) en `apps/api/test/consolidation.e2e-spec.ts`
-- [ ] T035 [P] [US2] unit de `MailService` (contenido: empleado/plato/acompañamiento; escape HTML; neutralización CRLF en **todos** los campos del correo, incluido el nombre del empleado) en `apps/api/src/mail/mail.service.spec.ts`
+- [X] T035 [P] [US2] unit de `MailService` (contenido: empleado/plato/acompañamiento; escape HTML; neutralización CRLF en **todos** los campos del correo, incluido el nombre del empleado) en `apps/api/src/mail/mail.service.spec.ts`
 
 ### Implementation for User Story 2
 
-- [ ] T036 [US2] Módulo de correo (`nodemailer` SMTP con TLS, plantilla con escape + neutralización CRLF) en `apps/api/src/mail/mail.service.ts`
-- [ ] T037 [US2] `GET /consolidation?fecha=` agrupado por proveedor (empleado, plato, acompañamiento, estado) en `apps/api/src/consolidation/consolidation.controller.ts`
-- [ ] T038 [US2] `POST /consolidation/send` transaccional: envía `PENDIENTE` del proveedor, marca `ENVIADO`+`enviadoAt`, crea `Envio` determinando el tipo **por proveedor** (primer envío = `PRINCIPAL`; los siguientes = `ADICIONAL`) en `apps/api/src/consolidation/consolidation.service.ts`
-- [ ] T039 [US2] Manejo de fallo SMTP (`502`, sin marcar, aislamiento por proveedor) en `apps/api/src/consolidation/consolidation.service.ts`
-- [ ] T040 [P] [US2] Web: página consolidado de Secretaría + botón enviar + confirmación/error en `apps/web/src/app/secretaria/consolidado/page.tsx`
+- [X] T036 [US2] Módulo de correo (`nodemailer` SMTP con TLS, plantilla con escape + neutralización CRLF) en `apps/api/src/mail/mail.service.ts`
+- [X] T037 [US2] `GET /consolidation?fecha=` agrupado por proveedor (empleado, plato, acompañamiento, estado) en `apps/api/src/consolidation/consolidation.controller.ts`
+- [X] T038 [US2] `POST /consolidation/send` transaccional: envía `PENDIENTE` del proveedor, marca `ENVIADO`+`enviadoAt`, crea `Envio` determinando el tipo **por proveedor** (primer envío = `PRINCIPAL`; los siguientes = `ADICIONAL`) en `apps/api/src/consolidation/consolidation.service.ts`
+- [X] T039 [US2] Manejo de fallo SMTP (`502`, sin marcar, aislamiento por proveedor) en `apps/api/src/consolidation/consolidation.service.ts`
+- [X] T040 [P] [US2] Web: página consolidado de Secretaría + botón enviar + confirmación/error en `apps/web/src/app/secretaria/consolidado/page.tsx`
 
 **Checkpoint**: US1 + US2 funcionan de forma independiente (captura + envío).
 

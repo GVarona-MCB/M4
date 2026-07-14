@@ -10,6 +10,7 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions.filter';
 import { validateEnv } from './config/env.validation';
 import { MenuModule } from './menu/menu.module';
 import { OrdersModule } from './orders/orders.module';
+import { ConsolidationModule } from './consolidation/consolidation.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { OrdersModule } from './orders/orders.module';
     AuthModule,
     MenuModule,
     OrdersModule,
+    ConsolidationModule,
   ],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },
