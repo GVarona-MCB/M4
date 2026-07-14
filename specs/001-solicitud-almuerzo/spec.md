@@ -419,7 +419,9 @@ historial identificada como manual; un no-Administrador no puede dispararla.
   zona horaria de referencia GMT-3. Asimismo, el "día" de la regla de un pedido por empleado por día (FR-017)
   es el día calendario en GMT-3.
 - **FR-033**: El sistema MUST notificar exclusivamente por correo; NO debe usar ningún otro canal ni
-  procesar pagos, delivery, control de asistencia externo ni stock.
+  procesar pagos, delivery, control de asistencia externo ni stock. *(Restricción arquitectónica: se
+  satisface por ausencia de integración de otros canales; verificable revisando que no existan
+  configuración ni endpoints de SMS/push/WhatsApp, no con un test funcional de rechazo.)*
 - **FR-034**: El sistema MUST tratar como dato los campos de texto libre provistos por el usuario
   (acompañamiento, descripción de plato) aplicando codificación de salida (escape) en todos los puntos de
   render —interfaz y correo— para prevenir inyección/XSS. El valor se almacena tal cual (sin alterar). En los
@@ -462,7 +464,9 @@ historial identificada como manual; un no-Administrador no puede dispararla.
   empleado y qué se envió a cada proveedor (incluidos los tardíos) antes de la depuración de las 15:00 hs.
 - **SC-004**: Las operaciones de carga de menú y de pedido responden en menos de 3 segundos en el
   percentil 95, con hasta 50 usuarios registrando su pedido en simultáneo.
-- **SC-005**: Disponibilidad ≥ 99% durante la franja horaria hábil (mañana a mediodía).
+- **SC-005**: Disponibilidad ≥ 99% durante la franja horaria hábil (mañana a mediodía). *(Objetivo
+  operativo/infra: se sostiene con despliegue y monitoreo; el sistema expone un endpoint de salud
+  (`GET /health`) para medirlo. No es una regla de negocio con test funcional.)*
 - **SC-006**: El 100% de los intentos de operación fuera de las reglas (fin de semana, después de las
   13:00 hs, segundo pedido del día, acompañamiento faltante, acceso a datos de otro rol/empleado) es
   rechazado con un mensaje claro del motivo.
