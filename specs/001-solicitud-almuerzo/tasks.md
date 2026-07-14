@@ -78,7 +78,7 @@ confirmar → 1 pedido `PENDIENTE`; segundo intento, fin de semana, 13:00 y acom
 
 ### Tests for User Story 1
 
-- [ ] T025 [P] [US1] e2e de `POST/PATCH/DELETE /orders/me`: feliz + triste (fin de semana, ≥13:00, 2º pedido, acompañamiento faltante, sin menú) en `apps/api/test/orders.e2e-spec.ts`
+- [ ] T025 [P] [US1] e2e de `POST/PATCH/DELETE /orders/me`: feliz + triste (fin de semana, ≥13:00, 2º pedido, acompañamiento faltante, sin menú, **editar/anular pedido `ENVIADO` rechazado** [FR-018]) en `apps/api/test/orders.e2e-spec.ts`
 - [ ] T026 [P] [US1] unit de reglas de `OrdersService` (unicidad, corte, acompañamiento, ≥1 menú) en `apps/api/src/orders/orders.service.spec.ts`
 
 ### Implementation for User Story 1

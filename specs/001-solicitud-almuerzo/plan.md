@@ -63,7 +63,7 @@ proveedores gestionados por el Administrador; ~10 pantallas.
 | I. Autenticación y sesión endurecidas | Cookie `HttpOnly`+`SameSite=Lax`+`secure` (prod); sesión opaca en tabla, expiración deslizante 15 min, hash `argon2` (mín. 6), logout y revocación inmediata. | ✅ |
 | II. Autorización por rol en backend | Guards de NestJS por rol en el 100 % de endpoints; front solo oculta por UX. Aislamiento por dueño del pedido. | ✅ |
 | III. Reglas de negocio validadas en el servidor | Validación de corte 13:00, fin de semana, unicidad diaria, acompañamiento, integridad de platos/pedidos en la API (DTOs + servicios), no solo en el front. | ✅ |
-| IV. Depuración diaria obligatoria e irreversible | Cron `@nestjs/schedule` 15:00 GMT-3, ≥3 reintentos, `DepuracionLog`; ejecución manual del Admin; sin respaldos que la evadan. | ✅ |
+| IV. Depuración diaria obligatoria e irreversible | Cron `@nestjs/schedule` 15:00 GMT-3, ≥3 reintentos, `RegistroDepuracion`; ejecución manual del Admin; sin respaldos que la evadan. | ✅ |
 | V. Correo/SMTP único canal, alcance cerrado | `nodemailer` con TLS; por proveedor; sin otros canales; sin pagos/delivery/stock. | ✅ |
 | VI. Tipado estricto y modelo único (Prisma) | TS `strict`; tipos derivados de Prisma; DTOs validados con `class-validator`. | ✅ |
 | VII. Manejo explícito de errores y bordes | Filtro de excepciones de NestJS, mensajes claros sin filtrar internos; manejo de fallo SMTP con reintento visible. | ✅ |

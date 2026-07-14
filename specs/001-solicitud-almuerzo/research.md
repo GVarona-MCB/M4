@@ -47,9 +47,9 @@ del stack. No quedan `NEEDS CLARIFICATION`: el stack está dado y el spec está 
 
 - **Decisión**: `@nestjs/schedule` con `@Cron('0 15 * * *', { timeZone: 'America/Argentina/Buenos_Aires' })`.
   La depuración borra menús/opciones/pedidos/envíos del día y de días anteriores no depurados en una
-  transacción idempotente, con **hasta 3 reintentos** (backoff) y un registro `DepuracionLog`
+  transacción idempotente, con **hasta 3 reintentos** (backoff) y un registro `RegistroDepuracion`
   (tipo automática/manual, resultado, timestamp). Endpoint manual `POST /purge` restringido a Admin (mismo
-  código, `tipo=manual`). El `DepuracionLog` **no** se borra (sobrevive a la depuración).
+  código, `tipo=manual`). El `RegistroDepuracion` **no** se borra (sobrevive a la depuración).
 - **Rationale**: `timeZone` en el cron evita cálculos manuales de GMT-3; el log fuera del alcance de borrado
   permite el historial (FR-029).
 - **Alternativas**: cron del SO / n8n (descartado: acopla infra externa; el PRD exige registro y respaldo
