@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiFetch, ensureCsrf, type ApiError } from '@/lib/api-client';
+import { LogoutButton } from '@/components/LogoutButton';
 
 interface MenuOption {
   id: string;
@@ -88,6 +89,7 @@ export default function PedirPage() {
 
   return (
     <main style={{ maxWidth: 560, margin: '2rem auto', fontFamily: 'system-ui' }}>
+      <LogoutButton />
       <h1>Mi pedido de hoy</h1>
       {menu.length === 0 && <p>No hay menú disponible para hoy.</p>}
 

@@ -27,6 +27,11 @@ export async function apiFetch<T = unknown>(path: string, options: RequestInit =
 
   const res = await fetch(`${API}${path}`, { ...options, headers, credentials: 'include' });
 
+  // Sesión expirada o inválida: volver al login (FR-005).
+  if (res.status === 401 && typeof window !== 'undefined' && !path.startsWith('/auth/')) {
+    window.location.href = '/login';
+  }
+
   if (!res.ok) {
     let code = 'error';
     let message = res.statusText;
@@ -50,4 +55,11 @@ export async function apiFetch<T = unknown>(path: string, options: RequestInit =
 /** Obtiene un token CSRF antes de operaciones que cambian estado. */
 export async function ensureCsrf(): Promise<void> {
   await apiFetch('/auth/csrf');
+}
+
+/** Cierra la sesión manualmente (FR-031) y vuelve al login. */
+export async function logout(): Promise<void> {
+  await ensureCsrf();
+  await apiFetch('/auth/logout', { method: 'POST' });
+  if (typeof window !== 'undefined') window.location.href = '/login';
 }

@@ -130,15 +130,15 @@ usuario desactivado con sesión activa → `401` inmediato; operación mutante s
 
 ### Tests for User Story 7
 
-- [ ] T041 [P] [US7] e2e de seguridad: `401` sin sesión, `403` cruce de rol, aislamiento de pedido propio, expiración 15 min, revocación, CSRF requerido, anti-enumeración en `apps/api/test/security.e2e-spec.ts`
+- [X] T041 [P] [US7] e2e de seguridad: `401` sin sesión, `403` cruce de rol, aislamiento de pedido propio, expiración 15 min, revocación, CSRF requerido, anti-enumeración en `apps/api/test/security.e2e-spec.ts`
 
 ### Implementation for User Story 7
 
-- [ ] T042 [US7] Aplicar guard de auth global y proteger todas las rutas (excepto login/csrf) en `apps/api/src/app.module.ts`
-- [ ] T043 [US7] Expiración deslizante (15 min de inactividad) en `apps/api/src/auth/session.service.ts`
-- [ ] T044 [US7] Verificar respuesta de login genérica (anti-enumeración) y filtro de errores sin fugas en `apps/api/src/auth/auth.controller.ts`
-- [ ] T045 [US7] Aplicar CSRF a todos los endpoints que cambian estado en `apps/api/src/auth/csrf.guard.ts`
-- [ ] T046 [P] [US7] Web: manejo de expiración (redirigir a login ante `401`) + botón cerrar sesión en `apps/web/src/lib/api-client.ts`
+- [X] T042 [US7] Aplicar guard de auth global y proteger todas las rutas (excepto login/csrf) en `apps/api/src/app.module.ts`
+- [X] T043 [US7] Expiración deslizante (15 min de inactividad) en `apps/api/src/auth/session.service.ts`
+- [X] T044 [US7] Verificar respuesta de login genérica (anti-enumeración) y filtro de errores sin fugas en `apps/api/src/auth/auth.controller.ts`
+- [X] T045 [US7] Aplicar CSRF a todos los endpoints que cambian estado en `apps/api/src/auth/csrf.guard.ts`
+- [X] T046 [P] [US7] Web: manejo de expiración (redirigir a login ante `401`) + botón cerrar sesión en `apps/web/src/lib/api-client.ts`
 
 **Checkpoint**: Postura de seguridad verificable de forma independiente.
 
