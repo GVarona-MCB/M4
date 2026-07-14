@@ -30,15 +30,15 @@ código (`*.spec.ts`). Prisma en `apps/api/prisma/`.
 
 **Purpose**: Inicialización del monorepo y estructura base.
 
-- [ ] T001 Crear estructura del monorepo pnpm (`pnpm-workspace.yaml`, `apps/web`, `apps/api`) en la raíz
-- [ ] T002 [P] Inicializar `apps/api` con NestJS 11 y `tsconfig` en modo strict en `apps/api/`
-- [ ] T003 [P] Inicializar `apps/web` con Next.js 15 (App Router) y `tsconfig` strict en `apps/web/`
-- [ ] T004 [P] Crear `docker-compose.yml` con PostgreSQL 16 en host `5433` en la raíz
-- [ ] T005 [P] Configurar ESLint + Prettier + TS strict en todo el workspace
-- [ ] T006 [P] Crear `.env.example` (DATABASE_URL con `sslmode`, SMTP TLS, SESSION, TZ GMT-3, puertos 3001/3002/5433) en la raíz
-- [ ] T007 [P] Fijar puertos (API 3001, Web 3002) en la config de cada app
-- [ ] T008 [P] Configurar runners de test: Jest+Supertest en `apps/api`, Vitest+RTL en `apps/web`, y `pnpm -r test` en la raíz
-- [ ] T009 Instalar dependencias core (`prisma`, `@prisma/client`, `argon2`, `nodemailer`, `@nestjs/schedule`, `@nestjs/config`, `class-validator`, lib CSRF) en `apps/api`
+- [X] T001 Crear estructura del monorepo pnpm (`pnpm-workspace.yaml`, `apps/web`, `apps/api`) en la raíz
+- [X] T002 [P] Inicializar `apps/api` con NestJS 11 y `tsconfig` en modo strict en `apps/api/`
+- [X] T003 [P] Inicializar `apps/web` con Next.js 15 (App Router) y `tsconfig` strict en `apps/web/`
+- [X] T004 [P] Crear `docker-compose.yml` con PostgreSQL 16 en host `5433` en la raíz
+- [X] T005 [P] Configurar ESLint + Prettier + TS strict en todo el workspace
+- [X] T006 [P] Crear `.env.example` (DATABASE_URL con `sslmode`, SMTP TLS, SESSION, TZ GMT-3, puertos 3001/3002/5433) en la raíz
+- [X] T007 [P] Fijar puertos (API 3001, Web 3002) en la config de cada app
+- [X] T008 [P] Configurar runners de test: Jest+Supertest en `apps/api`, Vitest+RTL en `apps/web`, y `pnpm -r test` en la raíz
+- [X] T009 Instalar dependencias core (`prisma`, `@prisma/client`, `argon2`, `nodemailer`, `@nestjs/schedule`, `@nestjs/config`, `class-validator`, lib CSRF) en `apps/api`
 
 ---
 

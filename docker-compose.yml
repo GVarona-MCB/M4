@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16
+    container_name: vianda-db
+    environment:
+      POSTGRES_USER: vianda
+      POSTGRES_PASSWORD: vianda
+      POSTGRES_DB: vianda
+    ports:
+      # Host 5433 -> contenedor 5432 (no choca con n8n en 5432)
+      - '5433:5432'
+    volumes:
+      - vianda-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U vianda']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  vianda-pgdata:
