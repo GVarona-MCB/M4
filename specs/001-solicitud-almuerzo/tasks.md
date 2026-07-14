@@ -78,7 +78,7 @@ confirmar → 1 pedido `PENDIENTE`; segundo intento, fin de semana, 13:00 y acom
 
 ### Tests for User Story 1
 
-- [ ] T025 [P] [US1] e2e de `POST/PATCH/DELETE /orders/me`: feliz + triste (fin de semana, ≥13:00, 2º pedido, acompañamiento faltante, sin menú, **editar/anular pedido `ENVIADO` rechazado** [FR-018]) en `apps/api/test/orders.e2e-spec.ts`
+- [X] T025 [P] [US1] e2e de `POST/PATCH/DELETE /orders/me`: feliz + triste (fin de semana, ≥13:00, 2º pedido, acompañamiento faltante, sin menú, **editar/anular pedido `ENVIADO` rechazado** [FR-018]) en `apps/api/test/orders.e2e-spec.ts`
 - [X] T026 [P] [US1] unit de reglas de `OrdersService` (unicidad, corte, acompañamiento, ≥1 menú) en `apps/api/src/orders/orders.service.spec.ts`
 
 ### Implementation for User Story 1
@@ -105,7 +105,7 @@ marcándolos como enviados.
 
 ### Tests for User Story 2
 
-- [ ] T034 [P] [US2] e2e de consolidación y envío (por proveedor, marca `ENVIADO`, fallo SMTP sin marcar, aislamiento, **envío sin pendientes = no-op: sin correo ni `Envio`**) en `apps/api/test/consolidation.e2e-spec.ts`
+- [X] T034 [P] [US2] e2e de consolidación y envío (por proveedor, marca `ENVIADO`, fallo SMTP sin marcar, aislamiento, **envío sin pendientes = no-op: sin correo ni `Envio`**) en `apps/api/test/consolidation.e2e-spec.ts`
 - [X] T035 [P] [US2] unit de `MailService` (contenido: empleado/plato/acompañamiento; escape HTML; neutralización CRLF en **todos** los campos del correo, incluido el nombre del empleado) en `apps/api/src/mail/mail.service.spec.ts`
 
 ### Implementation for User Story 2
