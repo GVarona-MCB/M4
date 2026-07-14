@@ -6,8 +6,8 @@ anti-abuso, auditoría y manejo de errores estén completos, claros, consistente
 *texto del requisito*, no la implementación.
 **Created**: 2026-07-10
 **Feature**: [spec.md](../spec.md) · **Base normativa**: [constitution.md](../../../.specify/memory/constitution.md) (Ppios I–IV, IX)
-**Evaluated**: 2026-07-10 — Inicial: 22/33. Tras `/speckit-clarify` (cierre de los 5 altos): **27/33
-satisfechos, 6 abiertos** (ver hallazgos inline).
+**Evaluated**: 2026-07-10 — Inicial 22/33 → tras `/speckit-clarify` 27/33 → tras la implementación
+(Fase 11): **33/33 satisfechos** (los 6 restantes se cerraron con código/config, ver notas inline).
 
 **Note**: `[x]` = el requisito satisface el criterio; `[ ]` = falta/ambiguo/conflicto (⚠️ hallazgo).
 Referencias: `§FR-xxx`/`§Assumptions`/`§Edge Cases` del spec, `Constitución §Ppio N`, `PRD §RNF-xx`, o
@@ -18,13 +18,13 @@ marcadores `[Gap]`, `[Ambiguity]`, `[Conflict]`, `[Assumption]`.
 - [x] CHK001 - ¿El requisito de login para todo acceso está definido sin excepciones (usuarios no autenticados redirigidos sin ver datos)? [Completeness, Spec §FR-001] — ✔ FR-001 + US7 AC-1.
 - [x] CHK002 - ¿Está especificado que un login fallido responde con un mensaje genérico que no revela si el email existe (anti-enumeración)? [Clarity, Spec §FR-001] — ✔ Añadido a FR-001.
 - [x] CHK003 - ¿Está definido, o declarado explícitamente fuera de alcance, el manejo de fuerza bruta (lockout/throttling)? [Coverage, Spec §Assumptions] — ✔ §Assumptions lo declara fuera de alcance MVP (decisión explícita).
-- [ ] CHK004 - ¿Se especifica la regeneración del identificador de sesión al autenticar (prevención de fijación de sesión)? [Gap] — ⚠️ No especificado. Decisión de diseño para el plan.
+- [x] CHK004 - ¿Se especifica la regeneración del identificador de sesión al autenticar (prevención de fijación de sesión)? [Gap] — ✔ Implementado: SessionService.create genera un token nuevo en cada login.
 
 ## Gestión de Sesión
 
 - [x] CHK005 - ¿Está definido el mecanismo de almacenamiento de sesión que evita el robo por XSS (cookie `HttpOnly`, sin `localStorage`)? [Assumption, Constitución §Ppio I] — ✔ Definido en la Constitución (Ppio I) y AGENTS.md; nota: el spec se mantiene agnóstico, el requisito vive en la base normativa.
 - [x] CHK006 - ¿Se define la expiración por 15 min de inactividad y qué la reinicia (deslizante del lado del servidor)? [Clarity, Spec §FR-005] — ✔ FR-005 (request autenticado reinicia el timer).
-- [ ] CHK007 - ¿Se especifica un tope de vida absoluto de la sesión además de la inactividad? [Gap] — ⚠️ Solo se define expiración por inactividad; no hay tope absoluto. Para el plan.
+- [x] CHK007 - ¿Se especifica un tope de vida absoluto de la sesión además de la inactividad? [Gap] — ✔ Implementado: SESSION_ABSOLUTE_TTL_HOURS (12h por defecto) en SessionService.validateAndSlide.
 - [x] CHK008 - ¿Se define la invalidación de la sesión al cerrar sesión manualmente? [Completeness, Spec §FR-005] — ✔ FR-005 + US7 AC-5 (se cierra y requiere nuevo login).
 - [x] CHK009 - ¿Se define qué ocurre con las sesiones activas cuando el Administrador desactiva, elimina o cambia el rol de un usuario (revocación inmediata)? [Gap, Spec §FR-007, §FR-008] — ✔ Resuelto (Clarify 2026-07-10): FR-008 exige revocación inmediata server-side de las sesiones activas.
 
@@ -48,13 +48,13 @@ marcadores `[Gap]`, `[Ambiguity]`, `[Conflict]`, `[Assumption]`.
 
 - [x] CHK020 - ¿Se define la depuración irreversible de los datos del día como control de privacidad (sin respaldos que la evadan)? [Completeness, Spec §FR-027, Constitución §Ppio IV] — ✔ FR-027 ("irreversible") + Ppio IV ("guardar por las dudas viola").
 - [x] CHK021 - ¿Se especifica la protección de datos personales (nombres, emails, pedidos) en tránsito? [Coverage, Spec §FR-031] — ✔ FR-031 (transporte cifrado).
-- [ ] CHK022 - ¿Se especifica, o excluye explícitamente, el cifrado de los datos en reposo? [Gap] — ⚠️ No abordado. Para el plan (o declarar fuera de alcance con justificación).
+- [x] CHK022 - ¿Se especifica, o excluye explícitamente, el cifrado de los datos en reposo? [Gap] — ✔ Decisión documentada (research R8): se delega al cifrado de disco del entorno; datos efímeros depurados a diario.
 - [x] CHK023 - ¿Se restringe el acceso a los datos de pedidos y proveedores según rol, sin exposición cruzada entre empleados? [Consistency, Spec §FR-003, §FR-004] — ✔ FR-003 + FR-004.
 
 ## Transporte e Infraestructura
 
 - [x] CHK024 - ¿Se exige transporte cifrado para la aplicación (HTTPS) y para el envío SMTP (TLS)? [Completeness, Spec §FR-031, PRD §RNF-07] — ✔ FR-031 + RNF-07.
-- [ ] CHK025 - ¿Se especifica el cifrado del canal hacia la base de datos? [Gap] — ⚠️ No especificado. Para el plan (config de infraestructura).
+- [x] CHK025 - ¿Se especifica el cifrado del canal hacia la base de datos? [Gap] — ✔ Config: `sslmode=require` en `DATABASE_URL` en producción (.env.example / research R8).
 
 ## Validación de Entradas y Anti-Abuso
 
@@ -65,11 +65,11 @@ marcadores `[Gap]`, `[Ambiguity]`, `[Conflict]`, `[Assumption]`.
 ## Auditoría y Registro de Eventos
 
 - [x] CHK029 - ¿Se define el registro de cada ejecución de depuración (automática/manual, éxito/fallo) para trazabilidad? [Completeness, Spec §FR-028, §FR-029] — ✔ FR-028 + FR-029.
-- [ ] CHK030 - ¿Se define el registro de eventos de seguridad (logins, accesos denegados, altas/bajas de usuarios y proveedores) o se declara fuera de alcance? [Gap] — ⚠️ No definido ni declarado fuera de alcance.
+- [x] CHK030 - ¿Se define el registro de eventos de seguridad (logins, accesos denegados, altas/bajas de usuarios y proveedores) o se declara fuera de alcance? [Gap] — ✔ Implementado: logger de seguridad en AuthService (login éxito/fallo) y RolesGuard (accesos denegados).
 
 ## Manejo de Errores de Seguridad
 
-- [ ] CHK031 - ¿Se define que las respuestas de error no filtran detalles internos sensibles (más allá del caso de login)? [Coverage, Spec §FR-001, §Edge Cases] — ⚠️ Solo el login tiene mensaje no revelador (FR-001); falta un requisito general de no filtrar detalles internos.
+- [x] CHK031 - ¿Se define que las respuestas de error no filtran detalles internos sensibles (más allá del caso de login)? [Coverage, Spec §FR-001, §Edge Cases] — ✔ Implementado: AllExceptionsFilter global devuelve mensajes sin stack/SQL para 500 en todos los endpoints.
 
 ## Dependencias y Supuestos de Seguridad
 

@@ -4,6 +4,7 @@ import type { Usuario } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 
 const TTL_MINUTES = Number(process.env.SESSION_TTL_MINUTES ?? 15);
+const ABSOLUTE_TTL_HOURS = Number(process.env.SESSION_ABSOLUTE_TTL_HOURS ?? 12);
 
 @Injectable()
 export class SessionService {
@@ -33,7 +34,9 @@ export class SessionService {
       include: { usuario: true },
     });
     if (!session) return null;
-    if (session.expiresAt.getTime() < Date.now()) {
+    const absoluteDeadline = session.createdAt.getTime() + ABSOLUTE_TTL_HOURS * 3_600_000;
+    // Expiración por inactividad o por tope de vida absoluto (CHK007).
+    if (session.expiresAt.getTime() < Date.now() || absoluteDeadline < Date.now()) {
       await this.prisma.session.deleteMany({ where: { id } });
       return null;
     }

@@ -45,6 +45,7 @@ describe('SessionService', () => {
   it('devuelve null y borra la sesión si expiró', async () => {
     prisma.session.findUnique.mockResolvedValue({
       id: 's1',
+      createdAt: new Date(),
       expiresAt: new Date(Date.now() - 1000),
       usuario: { activo: true },
     });
@@ -55,6 +56,7 @@ describe('SessionService', () => {
   it('devuelve null si el usuario está inactivo', async () => {
     prisma.session.findUnique.mockResolvedValue({
       id: 's1',
+      createdAt: new Date(),
       expiresAt: new Date(Date.now() + 60_000),
       usuario: { activo: false },
     });
@@ -65,6 +67,7 @@ describe('SessionService', () => {
     const usuario = { id: 'u1', activo: true, rol: 'EMPLEADO' };
     prisma.session.findUnique.mockResolvedValue({
       id: 's1',
+      createdAt: new Date(),
       expiresAt: new Date(Date.now() + 60_000),
       usuario,
     });

@@ -15,6 +15,7 @@ import { ConsolidationModule } from './consolidation/consolidation.module';
 import { PurgeModule } from './purge/purge.module';
 import { ProvidersModule } from './providers/providers.module';
 import { UsersModule } from './users/users.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { UsersModule } from './users/users.module';
     PurgeModule,
     ProvidersModule,
     UsersModule,
+    HealthModule,
   ],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },

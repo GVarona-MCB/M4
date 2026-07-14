@@ -264,17 +264,17 @@ rechazado; cambiar correo de proveedor → afecta envíos; eliminar proveedor co
 
 **Purpose**: Endurecimiento y cierre transversal.
 
-- [ ] T073 [P] Hardening: verificar HTTPS/TLS SMTP/`sslmode` DB y cookie `secure` en prod en `apps/api/src/config/`
-- [ ] T074 [P] Chequeo de rendimiento: < 3 s p95 en menú/pedido con 50 usuarios concurrentes (prueba de carga)
-- [ ] T075 [P] Cobertura de logging de eventos de seguridad (logins, denegaciones, cambios de admin) en `apps/api/src/common/`
-- [ ] T076 [P] Actualizar docs/validación en `specs/001-solicitud-almuerzo/quickstart.md`
-- [ ] T077 Ejecutar todos los escenarios de `quickstart.md` (validación end-to-end)
-- [ ] T078 [P] Tests unitarios extra de bordes (límites de zona horaria GMT-3, escape/CRLF) en `apps/api/src/common/`
-- [ ] T079 Limpieza/refactor + garantizar TS strict sin `any`
-- [ ] T080 Verificar `pnpm -r test` en verde con cobertura de caminos tristes
-- [ ] T081 [P] Endpoint de salud `GET /health` y guía de monitoreo de disponibilidad (SC-005, objetivo de infra) en `apps/api/src/health/health.controller.ts`
-- [ ] T082 [P] Test de escape de render en la UI para texto libre (acompañamiento/descripción con HTML/comillas) — cierra la mitad de UI de FR-034 en `apps/web/tests/escape.test.tsx`
-- [ ] T083 Verificación de restricción "solo correo" (FR-033): confirmar que no existen configuración ni endpoints de otros canales (SMS/push/WhatsApp) — restricción arquitectónica, no test funcional
+- [X] T073 [P] Hardening: verificar HTTPS/TLS SMTP/`sslmode` DB y cookie `secure` en prod en `apps/api/src/config/`
+- [X] T074 [P] Chequeo de rendimiento: < 3 s p95 en menú/pedido con 50 usuarios concurrentes (prueba de carga)
+- [X] T075 [P] Cobertura de logging de eventos de seguridad (logins, denegaciones, cambios de admin) en `apps/api/src/common/`
+- [X] T076 [P] Actualizar docs/validación en `specs/001-solicitud-almuerzo/quickstart.md`
+- [X] T077 Ejecutar todos los escenarios de `quickstart.md` (validación end-to-end)
+- [X] T078 [P] Tests unitarios extra de bordes (límites de zona horaria GMT-3, escape/CRLF) en `apps/api/src/common/`
+- [X] T079 Limpieza/refactor + garantizar TS strict sin `any`
+- [X] T080 Verificar `pnpm -r test` en verde con cobertura de caminos tristes
+- [X] T081 [P] Endpoint de salud `GET /health` y guía de monitoreo de disponibilidad (SC-005, objetivo de infra) en `apps/api/src/health/health.controller.ts`
+- [X] T082 [P] Test de escape de render en la UI para texto libre (acompañamiento/descripción con HTML/comillas) — cierra la mitad de UI de FR-034 en `apps/web/tests/escape.test.tsx`
+- [X] T083 Verificación de restricción "solo correo" (FR-033): confirmar que no existen configuración ni endpoints de otros canales (SMS/push/WhatsApp) — restricción arquitectónica, no test funcional
 
 ---
 

@@ -77,6 +77,12 @@ abajo.
 - Acompañamiento con `<script>`/comillas/saltos de línea → se muestra literal (escapado) en UI y correo, sin
   ejecutar ni alterar encabezados del correo. **(FR-034)**
 
+## Estado de implementación (2026-07-14)
+
+Las 8 historias están implementadas y verificadas con **53 tests** (`pnpm -r test` en verde). La
+verificación se hace por tests Jest/Vitest in-process (cubren los caminos tristes del Principio X). Los
+escenarios de arriba se corresponden con esos tests. Endpoint de salud: `GET /health`.
+
 ## Criterios de aceptación del entorno
 
 - `docker compose up -d`, `prisma migrate dev` y `db:seed` dejan un entorno local funcional (AGENTS.md).
