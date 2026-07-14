@@ -102,7 +102,8 @@ de esta historia tanto como de la carga.
 
 **Independent Test**: Con pedidos cargados para distintos proveedores, la Secretaría ejecuta el envío;
 cada proveedor recibe solo sus pedidos a su correo configurado y esos pedidos quedan marcados como
-enviados con fecha y hora.
+enviados con fecha y hora. El tipado del envío por proveedor (primer envío = principal) se valida aquí; la
+identificación "PEDIDO ADICIONAL" en el asunto se cubre en US3.
 
 **Acceptance Scenarios**:
 
@@ -401,8 +402,9 @@ historial identificada como manual; un no-Administrador no puede dispararla.
 
 **Depuración diaria**
 
-- **FR-027**: El sistema MUST eliminar automáticamente toda la información de pedidos y menús del día a las
-  15:00 hs, incluyendo datos de días anteriores no depurados, de forma irreversible.
+- **FR-027**: El sistema MUST eliminar automáticamente toda la información del día —opciones de menú,
+  pedidos y sus envíos— a las 15:00 hs, incluyendo datos de días anteriores no depurados, de forma
+  irreversible. NO se eliminan usuarios, proveedores, el registro de depuración ni las sesiones.
 - **FR-028**: El sistema MUST reintentar la depuración automática ante fallo (al menos 3 veces) y MUST
   registrar cada ejecución (exitosa o fallida).
 - **FR-029**: El sistema MUST permitir al Administrador ejecutar la depuración manualmente como respaldo,

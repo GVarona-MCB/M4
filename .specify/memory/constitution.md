@@ -1,9 +1,15 @@
 <!--
 Sync Impact Report
 ==================
-Version change: (template, unversioned) → 1.0.0
-Bump rationale: First concrete ratification of the constitution from the template.
-  MAJOR baseline (1.0.0) because principles are defined for the first time.
+Version change: (template, unversioned) → 1.0.0 → 1.0.1
+Bump rationale:
+  1.0.0 — First concrete ratification of the constitution from the template
+    (MAJOR baseline because principles are defined for the first time).
+  1.0.1 (2026-07-14, PATCH) — Aclaración del Principio III: el corte de las 13:00 sobre la "baja"
+    de pedidos aplica solo a las acciones del EMPLEADO; la Secretaría conserva la baja de pedidos
+    no enviados y el envío tras el corte (alinea con FR-023/FR-024/FR-025 y la clarificación del
+    spec). Se agrega nota de trazabilidad RF→FR en Governance. Sin cambios de comportamiento en el
+    spec (que ya reflejaba la intención).
 
 Principles defined (10):
   I.   Autenticación y sesión endurecidas
@@ -60,8 +66,10 @@ permisos es la API.
 ### III. Reglas de negocio validadas en el servidor (NON-NEGOTIABLE)
 El backend es la fuente de verdad de las reglas del PRD y MUST rechazar toda operación que las
 viole, aunque el front ya las muestre: un único pedido por empleado por día (RF-19); nada de
-pedidos sábados ni domingos (RF-21); ninguna carga, edición o baja de pedidos a partir de las
-13:00 hs (RF-27); no editar/eliminar platos que comprometan pedidos existentes (RF-12, RF-13);
+pedidos sábados ni domingos (RF-21); tras el corte de las 13:00 hs el **empleado** no puede cargar,
+editar ni anular su propio pedido, mientras la Secretaría conserva la baja de pedidos no enviados y el
+envío a proveedores después del corte (RF-27, acotado en FR-023/FR-024/FR-025); no editar/eliminar
+platos que comprometan pedidos existentes (RF-12, RF-13);
 no dar de baja pedidos ya enviados (RF-25). El acompañamiento requerido MUST bloquear la
 confirmación si falta (RF-18).
 **Rationale**: Las reglas de horario, unicidad y trazabilidad definen el producto; validarlas
@@ -166,5 +174,10 @@ conveniencia de implementación y un principio, gana el principio.
   complejidad añadida MUST justificarse. La guía operativa de desarrollo (stack, cómo correr, qué
   NO hacer) vive en `AGENTS.md` y `CLAUDE.md`; la especificación funcional completa, en
   `PRD-Sistema-Solicitud-Almuerzo.md`.
+- **Trazabilidad de identificadores**: los principios citan los identificadores originales del PRD
+  (`RF-xx`, `RNF-xx`, `AC-xx`). La especificación los re-expresa como `FR-###` y `SC-###`; la
+  correspondencia y el detalle vigente viven en `specs/001-solicitud-almuerzo/spec.md` (sección
+  Requirements y Clarifications), que es la fuente autoritativa cuando un gate de la constitución
+  necesita resolverse a un requisito concreto.
 
-**Version**: 1.0.0 | **Ratified**: 2026-07-10 | **Last Amended**: 2026-07-10
+**Version**: 1.0.1 | **Ratified**: 2026-07-10 | **Last Amended**: 2026-07-14

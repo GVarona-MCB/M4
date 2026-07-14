@@ -243,7 +243,7 @@ rechazado; cambiar correo de proveedor → afecta envíos; eliminar proveedor co
 
 ### Tests for User Story 6
 
-- [ ] T064 [P] [US6] e2e de usuarios (CRUD, anti auto-bloqueo, revocación) y proveedores (CRUD, bloqueo de borrado con datos) en `apps/api/test/admin.e2e-spec.ts`
+- [ ] T064 [P] [US6] e2e de usuarios (CRUD, anti auto-bloqueo, revocación, **rechazo de contraseña < 6** [FR-030], **unicidad de email case-insensitive** [FR-001/D1]) y proveedores (CRUD, bloqueo de borrado con datos) en `apps/api/test/admin.e2e-spec.ts`
 
 ### Implementation for User Story 6
 

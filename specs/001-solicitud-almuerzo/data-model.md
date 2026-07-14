@@ -21,6 +21,11 @@ Persona que accede al sistema.
 Reglas: no se puede desactivar/eliminar/quitar rol al **propio** Administrador (FR-007). Cambios de estado,
 rol o contraseña **revocan sesiones activas** (FR-008 → borrar filas `Session` del usuario).
 
+**Invariante de unicidad de email**: la unicidad case-insensitive se garantiza normalizando el email a
+minúsculas + trim en **todo** camino de escritura (crear/editar). Como el `@unique` de Prisma es
+sensible a mayúsculas, se debe además blindar a nivel DB con `citext` o un índice funcional
+`lower(email)`, para que un fallo de normalización no permita duplicados (test de invariante en T064).
+
 ### Proveedor
 Restaurante gestionado por el Administrador (cantidad determinada por él, N ≥ 0; se necesita ≥ 1 con menú
 para pedir).

@@ -107,9 +107,13 @@ apps/
 │   │   ├── providers/          # CRUD proveedores (Admin)
 │   │   ├── menu/               # carga/edición de menú del día y opciones de plato
 │   │   ├── orders/             # pedido del empleado (crear/editar/anular), reglas de corte
-│   │   ├── consolidation/      # consolidado + envío por proveedor (SMTP), envíos adicionales
+│   │   ├── consolidation/      # consolidado + envío por proveedor, envíos adicionales
+│   │   ├── mail/               # servicio SMTP/TLS + plantillas (escape/CRLF)
 │   │   ├── purge/              # job 15:00 + ejecución manual + historial
-│   │   ├── common/             # guards de rol, filtros de excepción, pipes, util de zona horaria
+│   │   ├── prisma/             # PrismaService (wrapper de conexión)
+│   │   ├── config/             # @nestjs/config + validación de entorno
+│   │   ├── health/             # GET /health (disponibilidad, SC-005)
+│   │   ├── common/             # guards de rol, filtros de excepción, crypto, util de zona horaria
 │   │   └── main.ts
 │   └── test/                   # e2e (Supertest) de reglas y autorización
 └── web/                        # Next.js 15 (puerto 3002)
