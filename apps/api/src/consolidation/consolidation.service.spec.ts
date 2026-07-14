@@ -1,8 +1,8 @@
-import { BadGatewayException } from '@nestjs/common';
+import { BadGatewayException, ConflictException, NotFoundException } from '@nestjs/common';
 import { ConsolidationService } from './consolidation.service';
 
 interface PrismaMock {
-  pedido: { findMany: jest.Mock };
+  pedido: { findMany: jest.Mock; findUnique: jest.Mock; delete: jest.Mock };
   proveedor: { findUniqueOrThrow: jest.Mock };
   envio: { count: jest.Mock };
   $transaction: jest.Mock;
@@ -14,7 +14,7 @@ interface MailMock {
 function makeMocks(): { prisma: PrismaMock; mail: MailMock } {
   return {
     prisma: {
-      pedido: { findMany: jest.fn() },
+      pedido: { findMany: jest.fn(), findUnique: jest.fn(), delete: jest.fn() },
       proveedor: { findUniqueOrThrow: jest.fn() },
       envio: { count: jest.fn() },
       $transaction: jest.fn().mockResolvedValue(undefined),
@@ -82,5 +82,34 @@ describe('ConsolidationService.send (FR-021..FR-026)', () => {
     mail.send.mockRejectedValue(new Error('smtp down'));
     await expect(service.send('pr1')).rejects.toBeInstanceOf(BadGatewayException);
     expect(prisma.$transaction).not.toHaveBeenCalled();
+  });
+});
+
+describe('ConsolidationService.removeOrder (FR-023/FR-025)', () => {
+  let prisma: PrismaMock;
+  let service: ConsolidationService;
+
+  beforeEach(() => {
+    const m = makeMocks();
+    prisma = m.prisma;
+    service = new ConsolidationService(prisma as never, m.mail as never);
+  });
+
+  it('da de baja un pedido PENDIENTE (rehabilita al empleado)', async () => {
+    prisma.pedido.findUnique.mockResolvedValue({ id: 'p1', estado: 'PENDIENTE' });
+    prisma.pedido.delete.mockResolvedValue({});
+    await expect(service.removeOrder('p1')).resolves.toEqual({ ok: true });
+    expect(prisma.pedido.delete).toHaveBeenCalledWith({ where: { id: 'p1' } });
+  });
+
+  it('rechaza dar de baja un pedido ya ENVIADO', async () => {
+    prisma.pedido.findUnique.mockResolvedValue({ id: 'p1', estado: 'ENVIADO' });
+    await expect(service.removeOrder('p1')).rejects.toBeInstanceOf(ConflictException);
+    expect(prisma.pedido.delete).not.toHaveBeenCalled();
+  });
+
+  it('404 si el pedido no existe', async () => {
+    prisma.pedido.findUnique.mockResolvedValue(null);
+    await expect(service.removeOrder('x')).rejects.toBeInstanceOf(NotFoundException);
   });
 });

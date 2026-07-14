@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { Rol } from '@prisma/client';
 import {
   ConsolidationService,
@@ -23,5 +23,11 @@ export class ConsolidationController {
   @Post('send')
   send(@Body() dto: SendDto): Promise<SendResult> {
     return this.consolidation.send(dto.proveedorId);
+  }
+
+  // Baja de un pedido de empleado por la Secretaría (FR-023, FR-025).
+  @Delete('orders/:id')
+  removeOrder(@Param('id') id: string): Promise<{ ok: true }> {
+    return this.consolidation.removeOrder(id);
   }
 }

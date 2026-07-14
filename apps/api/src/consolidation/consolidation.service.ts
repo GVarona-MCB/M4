@@ -1,4 +1,9 @@
-import { BadGatewayException, Injectable } from '@nestjs/common';
+import {
+  BadGatewayException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import type { TipoEnvio } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { MailService } from '../mail/mail.service';
@@ -110,5 +115,19 @@ export class ConsolidationService {
       tipo,
       mensaje: tipo === 'ADICIONAL' ? 'Enviado como PEDIDO ADICIONAL' : 'Envío principal realizado',
     };
+  }
+
+  /**
+   * La Secretaría da de baja un pedido PENDIENTE (rehabilita al empleado). No puede darse de baja
+   * un pedido ya ENVIADO (FR-023, FR-025). Disponible incluso después del corte de las 13:00.
+   */
+  async removeOrder(pedidoId: string): Promise<{ ok: true }> {
+    const pedido = await this.prisma.pedido.findUnique({ where: { id: pedidoId } });
+    if (!pedido) throw new NotFoundException('El pedido no existe');
+    if (pedido.estado === 'ENVIADO') {
+      throw new ConflictException('No puede eliminarse un pedido ya enviado al proveedor');
+    }
+    await this.prisma.pedido.delete({ where: { id: pedidoId } });
+    return { ok: true };
   }
 }

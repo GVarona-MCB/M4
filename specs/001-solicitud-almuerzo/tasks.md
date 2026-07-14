@@ -222,12 +222,12 @@ respetando la integridad ante pedidos asociados.
 
 ### Tests for User Story 5
 
-- [ ] T061 [P] [US5] e2e de baja por Secretaría (pendiente → rehabilita; enviado → `409`; disponible tras 13:00) en `apps/api/test/order-removal.e2e-spec.ts`
+- [X] T061 [P] [US5] e2e de baja por Secretaría (pendiente → rehabilita; enviado → `409`; disponible tras 13:00) en `apps/api/test/order-removal.e2e-spec.ts`
 
 ### Implementation for User Story 5
 
-- [ ] T062 [US5] `DELETE /consolidation/orders/:id` (solo `PENDIENTE`, disponible tras el corte) en `apps/api/src/consolidation/consolidation.controller.ts`
-- [ ] T063 [P] [US5] Web: control de baja de pedido en la página consolidado en `apps/web/src/app/secretaria/consolidado/`
+- [X] T062 [US5] `DELETE /consolidation/orders/:id` (solo `PENDIENTE`, disponible tras el corte) en `apps/api/src/consolidation/consolidation.controller.ts`
+- [X] T063 [P] [US5] Web: control de baja de pedido en la página consolidado en `apps/web/src/app/secretaria/consolidado/`
 
 **Checkpoint**: US5 funcional sin afectar el envío.
 

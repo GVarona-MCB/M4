@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiFetch, ensureCsrf, type ApiError } from '@/lib/api-client';
+import { LogoutButton } from '@/components/LogoutButton';
 
 interface Linea {
   pedidoId: string;
@@ -33,6 +34,19 @@ export default function ConsolidadoPage() {
   useEffect(() => {
     void load();
   }, []);
+
+  async function darDeBaja(pedidoId: string): Promise<void> {
+    setError(null);
+    setMsg(null);
+    try {
+      await ensureCsrf();
+      await apiFetch(`/consolidation/orders/${pedidoId}`, { method: 'DELETE' });
+      setMsg('Pedido dado de baja; el empleado puede volver a registrar.');
+      await load();
+    } catch (err) {
+      setError((err as ApiError).message);
+    }
+  }
 
   async function enviar(proveedorId: string): Promise<void> {
     setError(null);
@@ -75,6 +89,11 @@ export default function ConsolidadoPage() {
                   <td>{p.plato}</td>
                   <td>{p.acompanamiento ?? '—'}</td>
                   <td>{p.estado}</td>
+                  <td>
+                    {p.estado === 'PENDIENTE' && (
+                      <button onClick={() => void darDeBaja(p.pedidoId)}>Dar de baja</button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
