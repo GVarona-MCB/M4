@@ -13,7 +13,7 @@ Persona que accede al sistema.
 | id | uuid (PK) | |
 | email | string, **único (case-insensitive)** | login; se normaliza a minúsculas + trim (FR-001, FR-034 no aplica) |
 | nombre | string | |
-| passwordHash | string | argon2id; nunca se expone (FR-030) |
+| passwordHash | string | argon2id (o bcrypt, RNF-01); nunca se expone (FR-030) |
 | rol | enum `ADMIN` \| `SECRETARIA` \| `EMPLEADO` | exactamente uno (FR-002) |
 | activo | boolean (default true) | inactivo no puede iniciar sesión (FR-008) |
 | createdAt / updatedAt | datetime | |

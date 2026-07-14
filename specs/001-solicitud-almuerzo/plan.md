@@ -24,7 +24,7 @@ programado** para la depuración de las 15:00 con reintentos y registro.
 - Back: NestJS 11 (`@nestjs/schedule` para el cron de depuración, `@nestjs/config`).
 - ORM: Prisma (PostgreSQL 16).
 - Correo: `nodemailer` (SMTP con TLS).
-- Seguridad: `argon2` (hash de contraseñas), `csrf-csrf`/token sincronizador (anti-CSRF), sesión propia en
+- Seguridad: `argon2id` (hash de contraseñas; `bcrypt` también aceptable por RNF-01), `csrf-csrf`/token sincronizador (anti-CSRF), sesión propia en
   tabla (opaca en cookie `HttpOnly`).
 - Validación: `class-validator` + `class-transformer` (DTOs de NestJS).
 

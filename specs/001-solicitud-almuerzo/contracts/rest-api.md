@@ -13,7 +13,7 @@
 - **Errores**: JSON `{ "error": { "code": string, "message": string } }`, sin filtrar detalles internos
   (R9). Códigos: `401` no autenticado · `403` sin permiso/regla de negocio de acceso · `404` no existe ·
   `409` conflicto de regla de negocio (fin de semana, corte 13:00, 2º pedido, plato con pedidos, proveedor
-  con datos, pedido ya enviado) · `422` validación de campos.
+  con datos, pedido ya enviado) · `422` validación de campos · `502` fallo aguas arriba (SMTP).
 - Roles: `ADMIN`, `SECRETARIA`, `EMPLEADO`. "Autenticado" = cualquiera de los tres.
 
 ## Auth
@@ -70,7 +70,7 @@
 | Método | Ruta | Rol | Descripción | FR |
 |---|---|---|---|---|
 | GET | `/consolidation?fecha=YYYY-MM-DD` | SECRETARIA | Pedidos del día agrupados por proveedor (empleado, plato, acompañamiento, estado). | FR-020 |
-| POST | `/consolidation/send` | SECRETARIA | `{ proveedorId }` → envía por SMTP los `PENDIENTE` de ese proveedor; marca `ENVIADO`; crea `Envio` (`PRINCIPAL`/`ADICIONAL`). Disponible tras 13:00. Correo con "PEDIDO ADICIONAL" en el asunto si adicional. `502` si SMTP falla (sin marcar). | FR-021..FR-026 |
+| POST | `/consolidation/send` | SECRETARIA | `{ proveedorId }` → envía por SMTP los `PENDIENTE` de ese proveedor; marca `ENVIADO`; crea `Envio` (`PRINCIPAL`/`ADICIONAL`). Disponible tras 13:00. Correo con "PEDIDO ADICIONAL" en el asunto si adicional. Si el proveedor **no tiene pedidos `PENDIENTE`**, es **no-op**: no envía correo ni crea `Envio`, y responde `200` indicando que no hay pedidos nuevos. `502` si SMTP falla (sin marcar). | FR-021..FR-026 |
 | DELETE | `/consolidation/orders/:id` | SECRETARIA | Da de baja el pedido de un empleado si `PENDIENTE` (disponible tras 13:00); `409` si ya `ENVIADO`. | FR-023, FR-025 |
 
 ## Depuración (Administrador / sistema)
@@ -82,6 +82,12 @@
 
 > La depuración automática de las 15:00 (GMT-3) corre como **job programado** interno (no es un endpoint
 > público), con ≥3 reintentos y registro (FR-027, FR-028, RNF-06).
+
+## Salud
+
+| Método | Ruta | Rol | Descripción | Ref |
+|---|---|---|---|---|
+| GET | `/health` | público | Chequeo de salud/liveness para medir disponibilidad (sin datos sensibles). | SC-005 |
 
 ## Notas de contrato
 

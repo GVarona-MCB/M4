@@ -105,8 +105,8 @@ marcándolos como enviados.
 
 ### Tests for User Story 2
 
-- [ ] T034 [P] [US2] e2e de consolidación y envío (por proveedor, marca `ENVIADO`, fallo SMTP sin marcar, aislamiento) en `apps/api/test/consolidation.e2e-spec.ts`
-- [ ] T035 [P] [US2] unit de `MailService` (contenido: empleado/plato/acompañamiento; escape HTML; neutralización CRLF) en `apps/api/src/mail/mail.service.spec.ts`
+- [ ] T034 [P] [US2] e2e de consolidación y envío (por proveedor, marca `ENVIADO`, fallo SMTP sin marcar, aislamiento, **envío sin pendientes = no-op: sin correo ni `Envio`**) en `apps/api/test/consolidation.e2e-spec.ts`
+- [ ] T035 [P] [US2] unit de `MailService` (contenido: empleado/plato/acompañamiento; escape HTML; neutralización CRLF en **todos** los campos del correo, incluido el nombre del empleado) en `apps/api/src/mail/mail.service.spec.ts`
 
 ### Implementation for User Story 2
 

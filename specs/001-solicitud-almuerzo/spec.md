@@ -300,7 +300,8 @@ historial identificada como manual; un no-Administrador no puede dispararla.
 - **Fallo de la depuración automática**: se reintenta (al menos 3 veces) y se registra el fallo; el
   Administrador puede ejecutar la depuración manual de respaldo.
 - **Envío adicional sin nuevos pedidos**: un envío adicional solo debe incluir pedidos nuevos desde el
-  último envío; si no hay nuevos, no debe reenviar los ya enviados.
+  último envío; si no hay nuevos, es un no-op: no se envía correo ni se crea un `Envio`, y se informa que
+  no hay pedidos pendientes para ese proveedor.
 - **Auto-bloqueo del Administrador**: no puede desactivarse, eliminarse ni quitarse el rol a sí mismo.
 - **Revocación de sesión**: si un usuario con sesión activa es desactivado, eliminado, cambiado de rol o se
   le restablece la contraseña, su siguiente request es rechazado (sesión invalidada) y debe volver a
@@ -375,7 +376,8 @@ historial identificada como manual; un no-Administrador no puede dispararla.
   el día, ofreciéndole editar o anular el existente.
 - **FR-018**: El sistema MUST permitir al empleado editar su propio pedido solo mientras no haya sido
   enviado al proveedor.
-- **FR-019**: El sistema MUST impedir la carga de pedidos los sábados y domingos, informando el motivo.
+- **FR-019**: El sistema MUST impedir que el empleado cargue, edite o anule su pedido los sábados y
+  domingos (GMT-3), informando el motivo.
 
 **Consolidación y envío**
 
@@ -428,7 +430,9 @@ historial identificada como manual; un no-Administrador no puede dispararla.
   (acompañamiento, descripción de plato) aplicando codificación de salida (escape) en todos los puntos de
   render —interfaz y correo— para prevenir inyección/XSS. El valor se almacena tal cual (sin alterar). En los
   campos que se incorporan al correo, el sistema MUST neutralizar saltos de línea y caracteres de control
-  para prevenir la inyección de encabezados/contenido de correo.
+  para prevenir la inyección de encabezados/contenido de correo. Esta neutralización MUST aplicarse a
+  **todos** los campos que se renderizan en el correo (incluidos nombre del empleado y descripción de
+  plato), no solo al acompañamiento.
 - **FR-035**: El sistema MUST exigir un token anti-CSRF en todas las operaciones que cambian estado,
   manteniendo la cookie de sesión con `SameSite=Lax` como capa complementaria (no como única barrera).
 
