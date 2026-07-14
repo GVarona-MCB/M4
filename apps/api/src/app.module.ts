@@ -13,6 +13,7 @@ import { MenuModule } from './menu/menu.module';
 import { OrdersModule } from './orders/orders.module';
 import { ConsolidationModule } from './consolidation/consolidation.module';
 import { PurgeModule } from './purge/purge.module';
+import { ProvidersModule } from './providers/providers.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PurgeModule } from './purge/purge.module';
     OrdersModule,
     ConsolidationModule,
     PurgeModule,
+    ProvidersModule,
   ],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },

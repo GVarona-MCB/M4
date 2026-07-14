@@ -201,13 +201,13 @@ respetando la integridad ante pedidos asociados.
 
 ### Tests for User Story 4
 
-- [ ] T057 [P] [US4] e2e de menú (crear/editar/eliminar; bloqueo con pedidos asociados) en `apps/api/test/menu.e2e-spec.ts`
+- [X] T057 [P] [US4] e2e de menú (crear/editar/eliminar; bloqueo con pedidos asociados) en `apps/api/test/menu.e2e-spec.ts`
 
 ### Implementation for User Story 4
 
-- [ ] T058 [US4] DTOs + `MenuService` (crear opción, `llevaAcompanamiento`, escape de descripción) en `apps/api/src/menu/menu.service.ts`
-- [ ] T059 [US4] `POST/PATCH/DELETE /menu/options` (bloquear edición/borrado si hay pedidos asociados) en `apps/api/src/menu/menu.controller.ts`
-- [ ] T060 [P] [US4] Web: página de carga/edición de menú de Secretaría en `apps/web/src/app/secretaria/menu/page.tsx`
+- [X] T058 [US4] DTOs + `MenuService` (crear opción, `llevaAcompanamiento`, escape de descripción) en `apps/api/src/menu/menu.service.ts`
+- [X] T059 [US4] `POST/PATCH/DELETE /menu/options` (bloquear edición/borrado si hay pedidos asociados) en `apps/api/src/menu/menu.controller.ts`
+- [X] T060 [P] [US4] Web: página de carga/edición de menú de Secretaría en `apps/web/src/app/secretaria/menu/page.tsx`
 
 **Checkpoint**: US4 funcional; la carga de menú deja de depender del seed.
 
