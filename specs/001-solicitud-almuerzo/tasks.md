@@ -154,15 +154,15 @@ registra; `POST /purge` solo Admin (no-Admin `403`); `GET /purge/history` lista 
 
 ### Tests for User Story 8
 
-- [ ] T047 [P] [US8] e2e de depuración (borrado del día + previos, manual solo Admin `403`, historial, reintentos/registro, y **aserción de que completa dentro de los 15 min** — SC-007/RNF-06) en `apps/api/test/purge.e2e-spec.ts`
+- [X] T047 [P] [US8] e2e de depuración (borrado del día + previos, manual solo Admin `403`, historial, reintentos/registro, y **aserción de que completa dentro de los 15 min** — SC-007/RNF-06) en `apps/api/test/purge.e2e-spec.ts`
 
 ### Implementation for User Story 8
 
-- [ ] T048 [US8] `PurgeService` transaccional: borra `OpcionPlato`/`Pedido`/`Envio` del día y previos no depurados; crea `RegistroDepuracion` en `apps/api/src/purge/purge.service.ts`
-- [ ] T049 [US8] Cron 15:00 GMT-3 con ≥3 reintentos + registro en `apps/api/src/purge/purge.scheduler.ts`
-- [ ] T050 [US8] `POST /purge` (manual, ADMIN) + `GET /purge/history` en `apps/api/src/purge/purge.controller.ts`
-- [ ] T051 [P] [US8] Web: historial de depuraciones + disparo manual (Admin) en `apps/web/src/app/admin/depuracion/page.tsx`
-- [ ] T052 [US8] Verificar que `RegistroDepuracion` y `Session` sobreviven a la depuración (test) en `apps/api/test/purge.e2e-spec.ts`
+- [X] T048 [US8] `PurgeService` transaccional: borra `OpcionPlato`/`Pedido`/`Envio` del día y previos no depurados; crea `RegistroDepuracion` en `apps/api/src/purge/purge.service.ts`
+- [X] T049 [US8] Cron 15:00 GMT-3 con ≥3 reintentos + registro en `apps/api/src/purge/purge.scheduler.ts`
+- [X] T050 [US8] `POST /purge` (manual, ADMIN) + `GET /purge/history` en `apps/api/src/purge/purge.controller.ts`
+- [X] T051 [P] [US8] Web: historial de depuraciones + disparo manual (Admin) en `apps/web/src/app/admin/depuracion/page.tsx`
+- [X] T052 [US8] Verificar que `RegistroDepuracion` y `Session` sobreviven a la depuración (test) en `apps/api/test/purge.e2e-spec.ts`
 
 **Checkpoint**: Las 4 historias P1 (US1, US2, US7, US8) funcionan de forma independiente.
 

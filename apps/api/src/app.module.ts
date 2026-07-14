@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { ScheduleModule } from '@nestjs/schedule';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
@@ -11,15 +12,18 @@ import { validateEnv } from './config/env.validation';
 import { MenuModule } from './menu/menu.module';
 import { OrdersModule } from './orders/orders.module';
 import { ConsolidationModule } from './consolidation/consolidation.module';
+import { PurgeModule } from './purge/purge.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, validate: validateEnv }),
+    ScheduleModule.forRoot(),
     PrismaModule,
     AuthModule,
     MenuModule,
     OrdersModule,
     ConsolidationModule,
+    PurgeModule,
   ],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },
