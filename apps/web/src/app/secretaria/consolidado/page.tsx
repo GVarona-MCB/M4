@@ -66,6 +66,7 @@ export default function ConsolidadoPage() {
 
   return (
     <main style={{ maxWidth: 720, margin: '2rem auto', fontFamily: 'system-ui' }}>
+      <LogoutButton />
       <h1>Consolidado de pedidos</h1>
       {msg && <p style={{ color: 'green' }}>{msg}</p>}
       {error && <p style={{ color: 'crimson' }}>{error}</p>}
