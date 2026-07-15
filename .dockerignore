@@ -1,8 +1,12 @@
-node_modules
-dist
-.next
+**/node_modules
+**/dist
+**/.next
+**/coverage
+**/*.tsbuildinfo
+**/*.log
 .git
-*.log
-.env
-.env.*
-coverage
+.github
+# No copiar archivos de entorno locales (la config va por docker-compose)
+**/.env
+**/.env.*
+!**/.env.example

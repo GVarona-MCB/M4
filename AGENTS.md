@@ -19,14 +19,24 @@ correo. Reemplaza el proceso manual de Outlook + Excel.
   API `3001` · Web `3002` · PostgreSQL host `5433`
 
 ## Cómo correr
+
+### Opción A — Todo en Docker (recomendada para levantar rápido)
+- `docker compose up -d --build` → levanta **db + api + web**. La API aplica
+  migraciones y siembra datos de prueba al arrancar.
+- Entrar a la Web: http://localhost:3002/login
+- Bajar todo: `docker compose down` (agregar `-v` para borrar también la base).
+
+### Opción B — Híbrido (mejor para desarrollar, con hot-reload)
 - Instalar dependencias: `pnpm install`
-- Levantar PostgreSQL: `docker compose up -d`
+- Levantar solo la base: `docker compose up -d db`
 - Migraciones + Prisma Client: `pnpm --filter api prisma migrate dev`
 - Datos de prueba (usuarios + proveedores): `pnpm --filter api db:seed`
 - Back en dev (NestJS): `pnpm --filter api start:dev`
 - Front en dev (Next.js): `pnpm --filter web dev`
-- Tests: `pnpm -r test`
 - El `.env` se lee al arrancar: tras cambiarlo, reiniciar la API.
+
+Tests: `pnpm -r test` (unit) · `pnpm --filter api test:e2e` (e2e).
+Usuarios sembrados (contraseña `secret123`): `admin@`, `secretaria@`, `empleado@empresa.local`.
 
 ## Qué NO hacer
 - No aceptar pedidos fuera de las reglas del PRD: nada sábados ni domingos, nada

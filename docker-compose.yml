@@ -17,5 +17,42 @@ services:
       timeout: 5s
       retries: 10
 
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: vianda-api
+    environment:
+      DATABASE_URL: postgresql://vianda:vianda@db:5432/vianda?schema=public
+      API_PORT: 3001
+      APP_TIMEZONE: America/Argentina/Buenos_Aires
+      SESSION_COOKIE_NAME: vianda_session
+      SESSION_TTL_MINUTES: 15
+      SESSION_ABSOLUTE_TTL_HOURS: 12
+      SESSION_SECURE: 'false'
+      WEB_ORIGIN: http://localhost:3002
+      # SMTP: sin servidor real; el envío de correos fallará (502), el resto funciona.
+      SMTP_HOST: localhost
+      SMTP_PORT: 587
+      SMTP_FROM: vianda@empresa.local
+      SMTP_REQUIRE_TLS: 'true'
+    ports:
+      - '3001:3001'
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:3001
+    container_name: vianda-web
+    ports:
+      - '3002:3002'
+    depends_on:
+      - api
+
 volumes:
   vianda-pgdata:
