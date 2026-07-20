@@ -31,31 +31,31 @@ export default function LoginPage() {
   }
 
   return (
-    <main style={{ maxWidth: 360, margin: '4rem auto', fontFamily: 'system-ui' }}>
-      <h1>Vianda — Iniciar sesión</h1>
-      <form onSubmit={onSubmit}>
-        <label>
+    <main className="page-narrow">
+      <h1 className="mb-6 text-2xl font-bold">Vianda — Iniciar sesión</h1>
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
+        <label className="flex flex-col gap-1 text-sm font-medium">
           Email
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            style={{ display: 'block', width: '100%', marginBottom: 12 }}
+            className="field font-normal"
           />
         </label>
-        <label>
+        <label className="flex flex-col gap-1 text-sm font-medium">
           Contraseña
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            style={{ display: 'block', width: '100%', marginBottom: 12 }}
+            className="field font-normal"
           />
         </label>
-        {error && <p style={{ color: 'crimson' }}>{error}</p>}
-        <button type="submit" disabled={loading}>
+        {error && <p className="msg-error">{error}</p>}
+        <button type="submit" disabled={loading} className="btn btn-primary mt-2">
           {loading ? 'Ingresando…' : 'Ingresar'}
         </button>
       </form>

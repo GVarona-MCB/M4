@@ -65,41 +65,46 @@ export default function ConsolidadoPage() {
   }
 
   return (
-    <main style={{ maxWidth: 720, margin: '2rem auto', fontFamily: 'system-ui' }}>
+    <main className="page">
       <LogoutButton />
       <h1>Consolidado de pedidos</h1>
-      {msg && <p style={{ color: 'green' }}>{msg}</p>}
-      {error && <p style={{ color: 'crimson' }}>{error}</p>}
-      {grupos.length === 0 && <p>No hay pedidos cargados hoy.</p>}
+      {msg && <p className="msg-ok">{msg}</p>}
+      {error && <p className="msg-error">{error}</p>}
+      {grupos.length === 0 && <p className="mt-2 text-slate-600">No hay pedidos cargados hoy.</p>}
       {grupos.map((g) => (
-        <section key={g.proveedorId} style={{ marginBottom: 20 }}>
+        <section key={g.proveedorId} className="mb-6">
           <h2>{g.proveedorNombre}</h2>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr>
-                <th style={{ textAlign: 'left' }}>Empleado</th>
-                <th style={{ textAlign: 'left' }}>Plato</th>
-                <th style={{ textAlign: 'left' }}>Acompañamiento</th>
-                <th style={{ textAlign: 'left' }}>Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-              {g.pedidos.map((p) => (
-                <tr key={p.pedidoId}>
-                  <td>{p.empleado}</td>
-                  <td>{p.plato}</td>
-                  <td>{p.acompanamiento ?? '—'}</td>
-                  <td>{p.estado}</td>
-                  <td>
-                    {p.estado === 'PENDIENTE' && (
-                      <button onClick={() => void darDeBaja(p.pedidoId)}>Dar de baja</button>
-                    )}
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Empleado</th>
+                  <th>Plato</th>
+                  <th>Acompañamiento</th>
+                  <th>Estado</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <button onClick={() => void enviar(g.proveedorId)} style={{ marginTop: 8 }}>
+              </thead>
+              <tbody>
+                {g.pedidos.map((p) => (
+                  <tr key={p.pedidoId}>
+                    <td>{p.empleado}</td>
+                    <td>{p.plato}</td>
+                    <td>{p.acompanamiento ?? '—'}</td>
+                    <td>{p.estado}</td>
+                    <td>
+                      {p.estado === 'PENDIENTE' && (
+                        <button onClick={() => void darDeBaja(p.pedidoId)} className="btn btn-danger btn-sm">
+                          Dar de baja
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <button onClick={() => void enviar(g.proveedorId)} className="btn btn-primary mt-3">
             Enviar a {g.proveedorNombre}
           </button>
         </section>

@@ -74,45 +74,50 @@ export default function MenuAdminPage() {
   }
 
   return (
-    <main style={{ maxWidth: 640, margin: '2rem auto', fontFamily: 'system-ui' }}>
+    <main className="page max-w-2xl">
       <LogoutButton />
       <h1>Menú del día</h1>
 
-      <fieldset style={{ marginBottom: 20 }}>
+      <fieldset className="fieldset mt-4">
         <legend>Agregar opción</legend>
-        <select value={proveedorId} onChange={(e) => setProveedorId(e.target.value)}>
+        <select className="field" value={proveedorId} onChange={(e) => setProveedorId(e.target.value)}>
           {proveedores.map((p) => (
             <option key={p.id} value={p.id}>
               {p.nombre}
             </option>
           ))}
-        </select>{' '}
+        </select>
         <input
+          className="field"
           placeholder="Descripción del plato"
           value={descripcion}
           maxLength={200}
           onChange={(e) => setDescripcion(e.target.value)}
-        />{' '}
-        <label>
+        />
+        <label className="flex items-center gap-2 text-sm">
           <input type="checkbox" checked={lleva} onChange={(e) => setLleva(e.target.checked)} /> lleva
           acompañamiento
-        </label>{' '}
-        <button onClick={() => void agregar()} disabled={!proveedorId || !descripcion.trim()}>
+        </label>
+        <button onClick={() => void agregar()} disabled={!proveedorId || !descripcion.trim()} className="btn btn-primary">
           Agregar
         </button>
       </fieldset>
 
-      {error && <p style={{ color: 'crimson' }}>{error}</p>}
+      {error && <p className="msg-error">{error}</p>}
 
       {menu.map((g) => (
         <section key={g.proveedorId}>
           <h2>{g.proveedorNombre}</h2>
-          <ul>
+          <ul className="flex flex-col divide-y divide-slate-100">
             {g.opciones.map((o) => (
-              <li key={o.id}>
-                {o.descripcion}
-                {o.llevaAcompanamiento ? ' (con acompañamiento)' : ''}{' '}
-                <button onClick={() => void eliminar(o.id)}>Eliminar</button>
+              <li key={o.id} className="flex items-center justify-between gap-3 py-2">
+                <span>
+                  {o.descripcion}
+                  {o.llevaAcompanamiento ? ' (con acompañamiento)' : ''}
+                </span>
+                <button onClick={() => void eliminar(o.id)} className="btn btn-danger btn-sm">
+                  Eliminar
+                </button>
               </li>
             ))}
           </ul>

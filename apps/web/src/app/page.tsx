@@ -59,36 +59,27 @@ export default function Home() {
   }, []);
 
   if (!me) {
-    return <main style={{ maxWidth: 560, margin: '2rem auto', fontFamily: 'system-ui' }}>Cargando…</main>;
+    return <main className="mx-auto max-w-xl px-4 py-8">Cargando…</main>;
   }
 
   const items = [...COMUN, ...POR_ROL[me.rol]];
 
   return (
-    <main style={{ maxWidth: 560, margin: '2rem auto', fontFamily: 'system-ui' }}>
+    <main className="mx-auto max-w-xl px-4 py-8">
       <LogoutButton showHome={false} />
-      <h1>Vianda</h1>
-      <p>
-        Hola, <strong>{me.nombre}</strong> · {ROL_LABEL[me.rol]}
+      <h1 className="text-2xl font-bold">Vianda</h1>
+      <p className="mt-1 text-slate-600">
+        Hola, <strong className="font-semibold text-slate-900">{me.nombre}</strong> · {ROL_LABEL[me.rol]}
       </p>
-      <nav>
+      <nav className="mt-6 flex flex-col gap-2.5">
         {items.map((it) => (
           <Link
             key={it.href}
             href={it.href}
-            style={{
-              display: 'block',
-              padding: '12px 14px',
-              marginBottom: 10,
-              border: '1px solid #ccc',
-              borderRadius: 6,
-              textDecoration: 'none',
-              color: 'inherit',
-            }}
+            className="block rounded-md border border-slate-200 p-3 hover:bg-slate-50"
           >
-            <strong>{it.label}</strong>
-            <br />
-            <span style={{ color: '#666', fontSize: 14 }}>{it.desc}</span>
+            <span className="font-semibold">{it.label}</span>
+            <span className="mt-0.5 block text-sm text-slate-600">{it.desc}</span>
           </Link>
         ))}
       </nav>

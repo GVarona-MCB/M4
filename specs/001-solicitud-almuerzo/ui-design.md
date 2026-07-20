@@ -4,6 +4,14 @@ Guía de diseño del front (`apps/web`). Fija el lenguaje visual y los patrones 
 componente para que todas las pantallas se vean como un mismo sistema. El
 approach técnico es **Tailwind CSS** (ver decisión R12 en `research.md`).
 
+> **Implementación:** los patrones repetidos (shell de página, botones, inputs,
+> tablas, fieldsets, mensajes) se definen una sola vez como **clases de
+> componente** en `apps/web/src/app/globals.css` (`@layer components`, con
+> `@apply` sobre las utilidades de estos tokens): `.page`, `.field`, `.btn` +
+> `.btn-primary`/`.btn-secondary`/`.btn-danger`, `.table`, `.fieldset`,
+> `.msg-ok`/`.msg-error`. Las pantallas las consumen (`className="btn btn-primary"`),
+> lo que mantiene todo consistente y DRY. Casos puntuales usan utilidades sueltas.
+
 > **Principio rector:** es una herramienta **interna** de uso diario. Prioridad:
 > claridad, rapidez de lectura y bajo esfuerzo, por encima de lo decorativo.
 > Nada de la seguridad ni de las reglas de negocio vive en la UI (Ppio II): el

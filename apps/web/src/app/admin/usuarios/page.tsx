@@ -66,61 +66,65 @@ export default function UsuariosPage() {
   }
 
   return (
-    <main style={{ maxWidth: 720, margin: '2rem auto', fontFamily: 'system-ui' }}>
+    <main className="page">
       <LogoutButton />
       <h1>Usuarios</h1>
 
-      <fieldset style={{ marginBottom: 20 }}>
+      <fieldset className="fieldset mt-4">
         <legend>Crear usuario</legend>
-        <input placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />{' '}
-        <input placeholder="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />{' '}
-        <select value={rol} onChange={(e) => setRol(e.target.value as Rol)}>
+        <input className="field" placeholder="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <input className="field" placeholder="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+        <select className="field" value={rol} onChange={(e) => setRol(e.target.value as Rol)}>
           <option value="EMPLEADO">Empleado</option>
           <option value="SECRETARIA">Secretaría</option>
           <option value="ADMIN">Administrador</option>
-        </select>{' '}
+        </select>
         <input
+          className="field"
           placeholder="contraseña (≥6)"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-        />{' '}
+        />
         <button
           onClick={() => void crear()}
           disabled={!email || !nombre || password.length < 6}
+          className="btn btn-primary"
         >
           Crear
         </button>
       </fieldset>
 
-      {error && <p style={{ color: 'crimson' }}>{error}</p>}
+      {error && <p className="msg-error">{error}</p>}
 
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th style={{ textAlign: 'left' }}>Email</th>
-            <th style={{ textAlign: 'left' }}>Nombre</th>
-            <th style={{ textAlign: 'left' }}>Rol</th>
-            <th style={{ textAlign: 'left' }}>Estado</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {usuarios.map((u) => (
-            <tr key={u.id}>
-              <td>{u.email}</td>
-              <td>{u.nombre}</td>
-              <td>{u.rol}</td>
-              <td>{u.activo ? 'activo' : 'inactivo'}</td>
-              <td>
-                <button onClick={() => void toggleActivo(u)}>
-                  {u.activo ? 'Desactivar' : 'Activar'}
-                </button>
-              </td>
+      <div className="mt-4 overflow-x-auto">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Nombre</th>
+              <th>Rol</th>
+              <th>Estado</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {usuarios.map((u) => (
+              <tr key={u.id}>
+                <td>{u.email}</td>
+                <td>{u.nombre}</td>
+                <td>{u.rol}</td>
+                <td>{u.activo ? 'activo' : 'inactivo'}</td>
+                <td>
+                  <button onClick={() => void toggleActivo(u)} className="btn btn-secondary btn-sm">
+                    {u.activo ? 'Desactivar' : 'Activar'}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }

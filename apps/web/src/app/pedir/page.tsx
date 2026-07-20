@@ -88,35 +88,39 @@ export default function PedirPage() {
   const yaEnviado = pedido?.estado === 'ENVIADO';
 
   return (
-    <main style={{ maxWidth: 560, margin: '2rem auto', fontFamily: 'system-ui' }}>
+    <main className="page max-w-xl">
       <LogoutButton />
       <h1>Mi pedido de hoy</h1>
-      {menu.length === 0 && <p>No hay menú disponible para hoy.</p>}
+      {menu.length === 0 && <p className="mt-2 text-slate-600">No hay menú disponible para hoy.</p>}
 
-      {menu.map((g) => (
-        <fieldset key={g.proveedorId} style={{ marginBottom: 12 }}>
-          <legend>
-            <strong>{g.proveedorNombre}</strong>
-          </legend>
-          {g.opciones.map((o) => (
-            <label key={o.id} style={{ display: 'block' }}>
-              <input
-                type="radio"
-                name="opcion"
-                value={o.id}
-                checked={opcionId === o.id}
-                disabled={yaEnviado}
-                onChange={() => setOpcionId(o.id)}
-              />{' '}
-              {o.descripcion}
-              {o.llevaAcompanamiento ? ' (con acompañamiento)' : ''}
-            </label>
-          ))}
-        </fieldset>
-      ))}
+      <div className="mt-4 flex flex-col gap-3">
+        {menu.map((g) => (
+          <fieldset key={g.proveedorId} className="rounded-md border border-slate-200 p-4">
+            <legend className="px-1 font-semibold">{g.proveedorNombre}</legend>
+            <div className="flex flex-col gap-1">
+              {g.opciones.map((o) => (
+                <label key={o.id} className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="opcion"
+                    value={o.id}
+                    checked={opcionId === o.id}
+                    disabled={yaEnviado}
+                    onChange={() => setOpcionId(o.id)}
+                  />
+                  <span>
+                    {o.descripcion}
+                    {o.llevaAcompanamiento ? ' (con acompañamiento)' : ''}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        ))}
+      </div>
 
       {opcionElegida?.llevaAcompanamiento && (
-        <label style={{ display: 'block', marginBottom: 12 }}>
+        <label className="mt-4 flex flex-col gap-1 text-sm font-medium">
           Acompañamiento
           <input
             type="text"
@@ -124,28 +128,32 @@ export default function PedirPage() {
             value={acompanamiento}
             disabled={yaEnviado}
             onChange={(e) => setAcompanamiento(e.target.value)}
-            style={{ display: 'block', width: '100%' }}
+            className="field font-normal"
           />
         </label>
       )}
 
-      {msg && <p style={{ color: 'green' }}>{msg}</p>}
-      {error && <p style={{ color: 'crimson' }}>{error}</p>}
+      {msg && <p className="msg-ok">{msg}</p>}
+      {error && <p className="msg-error">{error}</p>}
 
-      {yaEnviado ? (
-        <p>Tu pedido ya fue enviado al proveedor y no puede modificarse.</p>
-      ) : pedido ? (
-        <>
-          <button onClick={() => void submit('PATCH')} disabled={!opcionId}>
-            Actualizar pedido
-          </button>{' '}
-          <button onClick={() => void anular()}>Anular pedido</button>
-        </>
-      ) : (
-        <button onClick={() => void submit('POST')} disabled={!opcionId}>
-          Confirmar pedido
-        </button>
-      )}
+      <div className="mt-5 flex gap-2">
+        {yaEnviado ? (
+          <p className="text-slate-600">Tu pedido ya fue enviado al proveedor y no puede modificarse.</p>
+        ) : pedido ? (
+          <>
+            <button onClick={() => void submit('PATCH')} disabled={!opcionId} className="btn btn-primary">
+              Actualizar pedido
+            </button>
+            <button onClick={() => void anular()} className="btn btn-danger">
+              Anular pedido
+            </button>
+          </>
+        ) : (
+          <button onClick={() => void submit('POST')} disabled={!opcionId} className="btn btn-primary">
+            Confirmar pedido
+          </button>
+        )}
+      </div>
     </main>
   );
 }

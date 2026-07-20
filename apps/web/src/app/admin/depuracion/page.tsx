@@ -44,35 +44,39 @@ export default function DepuracionPage() {
   }
 
   return (
-    <main style={{ maxWidth: 720, margin: '2rem auto', fontFamily: 'system-ui' }}>
+    <main className="page">
       <LogoutButton />
       <h1>Depuración</h1>
-      <p>La depuración automática corre todos los días a las 15:00 (GMT-3).</p>
-      <button onClick={() => void ejecutar()}>Ejecutar depuración manual</button>
-      {msg && <p style={{ color: 'green' }}>{msg}</p>}
-      {error && <p style={{ color: 'crimson' }}>{error}</p>}
+      <p className="mt-1 text-slate-600">La depuración automática corre todos los días a las 15:00 (GMT-3).</p>
+      <button onClick={() => void ejecutar()} className="btn btn-primary mt-4">
+        Ejecutar depuración manual
+      </button>
+      {msg && <p className="msg-ok">{msg}</p>}
+      {error && <p className="msg-error">{error}</p>}
 
       <h2>Historial</h2>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th style={{ textAlign: 'left' }}>Fecha/hora</th>
-            <th style={{ textAlign: 'left' }}>Tipo</th>
-            <th style={{ textAlign: 'left' }}>Resultado</th>
-            <th style={{ textAlign: 'left' }}>Intentos</th>
-          </tr>
-        </thead>
-        <tbody>
-          {historial.map((r) => (
-            <tr key={r.id}>
-              <td>{new Date(r.ejecutadoAt).toLocaleString('es-AR')}</td>
-              <td>{r.tipo}</td>
-              <td>{r.resultado}</td>
-              <td>{r.intentos}</td>
+      <div className="overflow-x-auto">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Fecha/hora</th>
+              <th>Tipo</th>
+              <th>Resultado</th>
+              <th>Intentos</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {historial.map((r) => (
+              <tr key={r.id}>
+                <td>{new Date(r.ejecutadoAt).toLocaleString('es-AR')}</td>
+                <td>{r.tipo}</td>
+                <td>{r.resultado}</td>
+                <td>{r.intentos}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }

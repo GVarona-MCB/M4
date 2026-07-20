@@ -57,31 +57,37 @@ export default function ProveedoresPage() {
   }
 
   return (
-    <main style={{ maxWidth: 640, margin: '2rem auto', fontFamily: 'system-ui' }}>
+    <main className="page max-w-2xl">
       <LogoutButton />
       <h1>Proveedores</h1>
-      <p>La cantidad de proveedores la determinás vos.</p>
+      <p className="mt-1 text-slate-600">La cantidad de proveedores la determinás vos.</p>
 
-      <fieldset style={{ marginBottom: 20 }}>
+      <fieldset className="fieldset mt-4">
         <legend>Agregar proveedor</legend>
-        <input placeholder="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />{' '}
+        <input className="field" placeholder="nombre" value={nombre} onChange={(e) => setNombre(e.target.value)} />
         <input
+          className="field"
           placeholder="correo de destino"
           value={correo}
           onChange={(e) => setCorreo(e.target.value)}
-        />{' '}
-        <button onClick={() => void crear()} disabled={!nombre || !correo}>
+        />
+        <button onClick={() => void crear()} disabled={!nombre || !correo} className="btn btn-primary">
           Agregar
         </button>
       </fieldset>
 
-      {error && <p style={{ color: 'crimson' }}>{error}</p>}
+      {error && <p className="msg-error">{error}</p>}
 
-      <ul>
+      <ul className="mt-4 flex flex-col divide-y divide-slate-100">
         {proveedores.map((p) => (
-          <li key={p.id}>
-            <strong>{p.nombre}</strong> — {p.correoDestino}{' '}
-            <button onClick={() => void eliminar(p.id)}>Eliminar</button>
+          <li key={p.id} className="flex items-center justify-between gap-3 py-2">
+            <span>
+              <strong className="font-semibold">{p.nombre}</strong>{' '}
+              <span className="text-slate-600">— {p.correoDestino}</span>
+            </span>
+            <button onClick={() => void eliminar(p.id)} className="btn btn-danger btn-sm">
+              Eliminar
+            </button>
           </li>
         ))}
       </ul>
