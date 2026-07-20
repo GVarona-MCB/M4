@@ -121,3 +121,17 @@ del stack. No quedan `NEEDS CLARIFICATION`: el stack está dado y el spec está 
   revocación de sesión y depuración 15:00. `pnpm -r test` corre todo.
 - **Rationale**: Alinea con el stack (Jest es el default de Nest) y el Principio X.
 - **Alternativas**: Playwright e2e de UI (útil pero opcional para el MVP; se puede sumar).
+
+## R12 — Estilado del front (UI)
+
+- **Decisión**: **Tailwind CSS** en `apps/web`. Los tokens de diseño (paleta, tipografía, spacing,
+  radios) se fijan en `ui-design.md` y se implementan vía la config de Tailwind + utilidades en el
+  markup. Se eliminan los `style={{…}}` inline actuales, que repetían el mismo shell de página en cada
+  pantalla. La seguridad y las reglas de negocio **no** dependen de la UI: el front solo aplica estilo y
+  oculta por UX (Ppio II).
+- **Rationale**: Estándar de facto en Next.js/App Router, integración inmediata, y trae una escala
+  coherente de color/spacing/tipografía que evita inventar un sistema desde cero. La app es chica
+  (~7 pantallas de formularios, tablas y listas), tamaño donde Tailwind rinde sin volverse ruido.
+- **Alternativas**: CSS Modules (nativo, sin dependencias, pero más verboso y hay que construir los tokens
+  a mano; se elige Tailwind por velocidad y consistencia) · estilos inline sueltos (estado actual;
+  descartado por repetición y falta de sistema).

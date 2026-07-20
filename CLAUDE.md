@@ -16,4 +16,5 @@ proyecto, las decisiones de diseño y los comandos, leer el plan y sus artefacto
 - Modelo de datos: `specs/001-solicitud-almuerzo/data-model.md`
 - Contrato REST: `specs/001-solicitud-almuerzo/contracts/rest-api.md`
 - Guía de validación: `specs/001-solicitud-almuerzo/quickstart.md`
+- Diseño del front (UI): `specs/001-solicitud-almuerzo/ui-design.md`
 <!-- SPECKIT END -->

@@ -83,6 +83,7 @@ specs/001-solicitud-almuerzo/
 ├── research.md          # Fase 0 (/speckit-plan)
 ├── data-model.md        # Fase 1 (/speckit-plan)
 ├── quickstart.md        # Fase 1 (/speckit-plan)
+├── ui-design.md         # Guía de diseño del front (Tailwind; ver R12)
 ├── contracts/           # Fase 1 (/speckit-plan)
 │   └── rest-api.md
 ├── checklists/
