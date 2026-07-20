@@ -77,7 +77,7 @@ export default function ProveedoresPage() {
 
       {error && <p className="msg-error">{error}</p>}
 
-      <ul className="mt-4 flex flex-col divide-y divide-slate-100">
+      <ul className="panel mt-4 divide-y divide-slate-100 px-4">
         {proveedores.map((p) => (
           <li key={p.id} className="flex items-center justify-between gap-3 py-2">
             <span>

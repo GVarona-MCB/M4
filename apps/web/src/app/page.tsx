@@ -71,7 +71,7 @@ export default function Home() {
           <Link
             key={it.href}
             href={it.href}
-            className="block rounded-md border border-slate-200 p-3 hover:bg-slate-50"
+            className="block rounded-md border border-slate-200 bg-white p-3 hover:bg-slate-50"
           >
             <span className="font-semibold">{it.label}</span>
             <span className="mt-0.5 block text-sm text-slate-600">{it.desc}</span>

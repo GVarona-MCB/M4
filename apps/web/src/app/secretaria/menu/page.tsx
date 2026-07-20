@@ -107,7 +107,7 @@ export default function MenuAdminPage() {
       {menu.map((g) => (
         <section key={g.proveedorId}>
           <h2>{g.proveedorNombre}</h2>
-          <ul className="flex flex-col divide-y divide-slate-100">
+          <ul className="panel divide-y divide-slate-100 px-4">
             {g.opciones.map((o) => (
               <li key={o.id} className="flex items-center justify-between gap-3 py-2">
                 <span>

@@ -54,7 +54,7 @@ export default function DepuracionPage() {
       {error && <p className="msg-error">{error}</p>}
 
       <h2>Historial</h2>
-      <div className="overflow-x-auto">
+      <div className="panel overflow-x-auto p-2">
         <table className="table">
           <thead>
             <tr>

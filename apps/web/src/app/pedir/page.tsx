@@ -94,7 +94,7 @@ export default function PedirPage() {
 
       <div className="mt-4 flex flex-col gap-3">
         {menu.map((g) => (
-          <fieldset key={g.proveedorId} className="rounded-md border border-slate-200 p-4">
+          <fieldset key={g.proveedorId} className="rounded-md border border-slate-200 bg-white p-4">
             <legend className="px-1 font-semibold">{g.proveedorNombre}</legend>
             <div className="flex flex-col gap-1">
               {g.opciones.map((o) => (

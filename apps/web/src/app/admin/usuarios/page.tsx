@@ -96,7 +96,7 @@ export default function UsuariosPage() {
 
       {error && <p className="msg-error">{error}</p>}
 
-      <div className="mt-4 overflow-x-auto">
+      <div className="panel mt-4 overflow-x-auto p-2">
         <table className="table">
           <thead>
             <tr>

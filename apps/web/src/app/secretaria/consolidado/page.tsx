@@ -73,7 +73,7 @@ export default function ConsolidadoPage() {
       {grupos.map((g) => (
         <section key={g.proveedorId} className="mb-6">
           <h2>{g.proveedorNombre}</h2>
-          <div className="overflow-x-auto">
+          <div className="panel overflow-x-auto p-2">
             <table className="table">
               <thead>
                 <tr>

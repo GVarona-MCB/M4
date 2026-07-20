@@ -17,19 +17,21 @@ const ROL_LABEL: Record<Rol, string> = {
   EMPLEADO: 'Empleado',
 };
 
-// Isologotipo de Vianda: marca (bowl con vapor) + wordmark. Original, sin assets externos.
+// Isologotipo de Vianda: marca (bowl humeante) + wordmark. Original, sin assets externos.
 function Logo() {
   return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect width="24" height="24" rx="6" fill="#2563eb" />
-      <path d="M5.5 12.5h13a6.5 6.5 0 0 1-13 0Z" fill="#fff" />
-      <path d="M4.5 12.5h15" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect width="24" height="24" rx="7" fill="#2563eb" />
+      {/* vapor */}
       <path
-        d="M9.5 5c-.7.7-.7 1.4 0 2.1M14.5 5c-.7.7-.7 1.4 0 2.1"
+        d="M9.6 4.3c-1.1 1-1.1 2.1 0 3.1M14.4 4.3c-1.1 1-1.1 2.1 0 3.1"
         stroke="#bfdbfe"
-        strokeWidth="1.3"
+        strokeWidth="1.4"
         strokeLinecap="round"
       />
+      {/* bowl: rim + cuerpo */}
+      <ellipse cx="12" cy="11.4" rx="7.3" ry="1.15" fill="#fff" />
+      <path d="M5 11.4h14a7 7 0 0 1-14 0Z" fill="#fff" />
     </svg>
   );
 }
