@@ -57,7 +57,7 @@
 
 | Método | Ruta | Rol | Descripción | FR |
 |---|---|---|---|---|
-| GET | `/orders/me` | autenticado | Pedido propio del día (o vacío). | FR-004 |
+| GET | `/orders/me` | autenticado | Pedido propio del día (o **200 con cuerpo vacío** si aún no pidió). | FR-004 |
 | POST | `/orders/me` | autenticado | Crea `{ opcionPlatoId, acompanamiento? }`. `409` si: fin de semana (FR-019/-021 negocio), ≥13:00, ya tiene pedido, sin menú; `422` si falta acompañamiento requerido. | FR-014..FR-019, FR-024 |
 | PATCH | `/orders/me` | autenticado | Edita el propio pedido solo si `PENDIENTE` y <13:00. | FR-018, FR-025 |
 | DELETE | `/orders/me` | autenticado | Anula el propio pedido solo si `PENDIENTE` y <13:00. | FR-025 |

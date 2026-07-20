@@ -20,13 +20,23 @@ correo. Reemplaza el proceso manual de Outlook + Excel.
 
 ## Cómo correr
 
-### Opción A — Todo en Docker (recomendada para levantar rápido)
-- `docker compose up -d --build` → levanta **db + api + web**. La API aplica
-  migraciones y siembra datos de prueba al arrancar.
+**Todo el proyecto corre en Docker.** No hace falta tener Node, pnpm ni
+PostgreSQL instalados en la máquina: `docker compose` levanta **db + api + web**.
+
+```bash
+docker compose up -d --build
+```
+
+- La API aplica migraciones y siembra datos de prueba al arrancar (idempotente).
 - Entrar a la Web: http://localhost:3002/login
 - Bajar todo: `docker compose down` (agregar `-v` para borrar también la base).
 
-### Opción B — Híbrido (mejor para desarrollar, con hot-reload)
+Usuarios sembrados (contraseña `secret123`): `admin@`, `secretaria@`,
+`empleado@empresa.local`.
+
+### Desarrollo con hot-reload (opcional, requiere Node 22 + pnpm 11 locales)
+Solo si necesitás editar con recarga en caliente. La base sigue en Docker; la
+API y la Web corren en tu máquina:
 - Instalar dependencias: `pnpm install`
 - Levantar solo la base: `docker compose up -d db`
 - Migraciones + Prisma Client: `pnpm --filter api prisma migrate dev`
@@ -36,7 +46,14 @@ correo. Reemplaza el proceso manual de Outlook + Excel.
 - El `.env` se lee al arrancar: tras cambiarlo, reiniciar la API.
 
 Tests: `pnpm -r test` (unit) · `pnpm --filter api test:e2e` (e2e).
-Usuarios sembrados (contraseña `secret123`): `admin@`, `secretaria@`, `empleado@empresa.local`.
+
+## Comportamiento de la Web
+- Tras el login, el ruteo depende del rol: EMPLEADO va directo a `/pedir`;
+  ADMIN y SECRETARIA van a la home `/`, que muestra la navegación propia de
+  cada rol. Registrar el pedido es transversal a los tres roles (RF-14).
+- El cliente HTTP (`apps/web/src/lib/api-client.ts`) debe tolerar respuestas
+  OK sin cuerpo (204, o 200 con cuerpo vacío como `GET /orders/me` sin pedido):
+  nunca asumir que todo 2xx trae JSON.
 
 ## Qué NO hacer
 - No aceptar pedidos fuera de las reglas del PRD: nada sábados ni domingos, nada
