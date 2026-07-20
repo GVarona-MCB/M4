@@ -16,13 +16,14 @@ Requisito único: **Docker** (con Docker Compose v2).
 docker compose up -d --build
 ```
 
-Esto levanta tres contenedores:
+Esto levanta cuatro contenedores:
 
-| Servicio | Contenedor  | URL / puerto              |
-| -------- | ----------- | ------------------------- |
-| Web      | `vianda-web`| http://localhost:3002     |
-| API      | `vianda-api`| http://localhost:3001     |
-| DB       | `vianda-db` | PostgreSQL en host `5433` |
+| Servicio | Contenedor       | URL / puerto              |
+| -------- | ---------------- | ------------------------- |
+| Web      | `vianda-web`     | http://localhost:3002     |
+| API      | `vianda-api`     | http://localhost:3001     |
+| DB       | `vianda-db`      | PostgreSQL en host `5433` |
+| MailHog  | `vianda-mailhog` | http://localhost:8025     |
 
 Al arrancar, la API aplica las migraciones y siembra datos de prueba de forma
 idempotente. Entrá por **http://localhost:3002/login**.
@@ -45,11 +46,16 @@ docker compose down -v    # además borra el volumen de la base de datos
 
 ## Correo (SMTP)
 
-El correo es el **único** canal de notificación. La configuración por defecto de
-`docker-compose.yml` **no** apunta a un servidor SMTP real, así que el envío de
-consolidaciones fallará (502) mientras el resto de la app funciona. Para probar
-el flujo completo de envío, configurá un SMTP real o un mock (p. ej. MailHog) en
-las variables `SMTP_*` del servicio `api`.
+El correo es el **único** canal de notificación. Por defecto el stack incluye
+**MailHog**, un servidor SMTP de prueba que **captura** los correos en vez de
+enviarlos de verdad: no requiere credenciales y evita filtrar cuentas reales.
+Los correos que la Secretaría envía a los proveedores quedan visibles en
+**http://localhost:8025**.
+
+Para enviar a buzones reales (Gmail, Microsoft 365, etc.), apuntá las variables
+`SMTP_*` del servicio `api` a tu servidor y agregá `SMTP_USER` / `SMTP_PASS`.
+Nunca pongas la contraseña en `docker-compose.yml` (se versiona en el repo):
+usá un `.env` local (ya ignorado por git) y leelo con `${SMTP_PASS}`.
 
 ## Stack
 

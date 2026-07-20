@@ -31,16 +31,28 @@ services:
       SESSION_ABSOLUTE_TTL_HOURS: 12
       SESSION_SECURE: 'false'
       WEB_ORIGIN: http://localhost:3002
-      # SMTP: sin servidor real; el envío de correos fallará (502), el resto funciona.
-      SMTP_HOST: localhost
-      SMTP_PORT: 587
+      # SMTP: apunta a MailHog (captura los correos, no los envía de verdad).
+      # Ver los correos enviados en http://localhost:8025
+      SMTP_HOST: mailhog
+      SMTP_PORT: 1025
       SMTP_FROM: vianda@empresa.local
-      SMTP_REQUIRE_TLS: 'true'
+      # MailHog no hace TLS: requireTLS debe ir en false.
+      SMTP_REQUIRE_TLS: 'false'
     ports:
       - '3001:3001'
     depends_on:
       db:
         condition: service_healthy
+      mailhog:
+        condition: service_started
+
+  mailhog:
+    # SMTP de prueba: captura los correos y los muestra en una web (no envía nada real).
+    image: mailhog/mailhog
+    container_name: vianda-mailhog
+    ports:
+      # 1025 = SMTP (interno, lo usa la API) · 8025 = interfaz web para ver los correos
+      - '8025:8025'
 
   web:
     build:
