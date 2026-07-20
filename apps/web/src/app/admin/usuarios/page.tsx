@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiFetch, ensureCsrf, type ApiError } from '@/lib/api-client';
-import { LogoutButton } from '@/components/LogoutButton';
+import { AppShell } from '@/components/AppShell';
 
 type Rol = 'ADMIN' | 'SECRETARIA' | 'EMPLEADO';
 interface Usuario {
@@ -66,8 +66,7 @@ export default function UsuariosPage() {
   }
 
   return (
-    <main className="page">
-      <LogoutButton />
+    <AppShell>
       <h1>Usuarios</h1>
 
       <fieldset className="fieldset mt-4">
@@ -125,6 +124,6 @@ export default function UsuariosPage() {
           </tbody>
         </table>
       </div>
-    </main>
+    </AppShell>
   );
 }

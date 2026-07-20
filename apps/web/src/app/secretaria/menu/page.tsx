@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiFetch, ensureCsrf, type ApiError } from '@/lib/api-client';
-import { LogoutButton } from '@/components/LogoutButton';
+import { AppShell } from '@/components/AppShell';
 
 interface Proveedor {
   id: string;
@@ -74,8 +74,7 @@ export default function MenuAdminPage() {
   }
 
   return (
-    <main className="page max-w-2xl">
-      <LogoutButton />
+    <AppShell>
       <h1>Menú del día</h1>
 
       <fieldset className="fieldset mt-4">
@@ -123,6 +122,6 @@ export default function MenuAdminPage() {
           </ul>
         </section>
       ))}
-    </main>
+    </AppShell>
   );
 }

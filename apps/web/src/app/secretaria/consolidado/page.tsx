@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiFetch, ensureCsrf, type ApiError } from '@/lib/api-client';
-import { LogoutButton } from '@/components/LogoutButton';
+import { AppShell } from '@/components/AppShell';
 
 interface Linea {
   pedidoId: string;
@@ -65,8 +65,7 @@ export default function ConsolidadoPage() {
   }
 
   return (
-    <main className="page">
-      <LogoutButton />
+    <AppShell>
       <h1>Consolidado de pedidos</h1>
       {msg && <p className="msg-ok">{msg}</p>}
       {error && <p className="msg-error">{error}</p>}
@@ -109,6 +108,6 @@ export default function ConsolidadoPage() {
           </button>
         </section>
       ))}
-    </main>
+    </AppShell>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiFetch, ensureCsrf, type ApiError } from '@/lib/api-client';
-import { LogoutButton } from '@/components/LogoutButton';
+import { AppShell } from '@/components/AppShell';
 
 interface MenuOption {
   id: string;
@@ -88,8 +88,7 @@ export default function PedirPage() {
   const yaEnviado = pedido?.estado === 'ENVIADO';
 
   return (
-    <main className="page max-w-xl">
-      <LogoutButton />
+    <AppShell>
       <h1>Mi pedido de hoy</h1>
       {menu.length === 0 && <p className="mt-2 text-slate-600">No hay menú disponible para hoy.</p>}
 
@@ -154,6 +153,6 @@ export default function PedirPage() {
           </button>
         )}
       </div>
-    </main>
+    </AppShell>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiFetch, ensureCsrf, type ApiError } from '@/lib/api-client';
-import { LogoutButton } from '@/components/LogoutButton';
+import { AppShell } from '@/components/AppShell';
 
 interface Proveedor {
   id: string;
@@ -57,8 +57,7 @@ export default function ProveedoresPage() {
   }
 
   return (
-    <main className="page max-w-2xl">
-      <LogoutButton />
+    <AppShell>
       <h1>Proveedores</h1>
       <p className="mt-1 text-slate-600">La cantidad de proveedores la determinás vos.</p>
 
@@ -91,6 +90,6 @@ export default function ProveedoresPage() {
           </li>
         ))}
       </ul>
-    </main>
+    </AppShell>
   );
 }

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { apiFetch, type ApiError } from '@/lib/api-client';
-import { LogoutButton } from '@/components/LogoutButton';
+import { AppShell } from '@/components/AppShell';
 
 interface Me {
   id: string;
@@ -35,12 +35,6 @@ const POR_ROL: Record<Me['rol'], NavItem[]> = {
   ],
 };
 
-const ROL_LABEL: Record<Me['rol'], string> = {
-  ADMIN: 'Administrador',
-  SECRETARIA: 'Secretaría',
-  EMPLEADO: 'Empleado',
-};
-
 export default function Home() {
   const [me, setMe] = useState<Me | null>(null);
 
@@ -59,18 +53,19 @@ export default function Home() {
   }, []);
 
   if (!me) {
-    return <main className="mx-auto max-w-xl px-4 py-8">Cargando…</main>;
+    return (
+      <AppShell showHome={false}>
+        <p className="text-slate-600">Cargando…</p>
+      </AppShell>
+    );
   }
 
   const items = [...COMUN, ...POR_ROL[me.rol]];
 
   return (
-    <main className="mx-auto max-w-xl px-4 py-8">
-      <LogoutButton showHome={false} />
-      <h1 className="text-2xl font-bold">Vianda</h1>
-      <p className="mt-1 text-slate-600">
-        Hola, <strong className="font-semibold text-slate-900">{me.nombre}</strong> · {ROL_LABEL[me.rol]}
-      </p>
+    <AppShell showHome={false}>
+      <h1>Hola, {me.nombre.split(' ')[0]}</h1>
+      <p className="mt-1 text-slate-600">¿Qué querés hacer?</p>
       <nav className="mt-6 flex flex-col gap-2.5">
         {items.map((it) => (
           <Link
@@ -83,6 +78,6 @@ export default function Home() {
           </Link>
         ))}
       </nav>
-    </main>
+    </AppShell>
   );
 }

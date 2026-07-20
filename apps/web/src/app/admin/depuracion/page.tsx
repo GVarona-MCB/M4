@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { apiFetch, ensureCsrf, type ApiError } from '@/lib/api-client';
-import { LogoutButton } from '@/components/LogoutButton';
+import { AppShell } from '@/components/AppShell';
 
 interface Registro {
   id: string;
@@ -44,8 +44,7 @@ export default function DepuracionPage() {
   }
 
   return (
-    <main className="page">
-      <LogoutButton />
+    <AppShell>
       <h1>Depuración</h1>
       <p className="mt-1 text-slate-600">La depuración automática corre todos los días a las 15:00 (GMT-3).</p>
       <button onClick={() => void ejecutar()} className="btn btn-primary mt-4">
@@ -77,6 +76,6 @@ export default function DepuracionPage() {
           </tbody>
         </table>
       </div>
-    </main>
+    </AppShell>
   );
 }
