@@ -48,8 +48,12 @@ export async function apiFetch<T = unknown>(path: string, options: RequestInit =
     throw err;
   }
 
+  // Respuesta OK sin cuerpo: 204, o 200 con cuerpo vacío (p. ej. GET /orders/me
+  // cuando el empleado aún no tiene pedido → el contrato lo define como "vacío").
+  // Evita "Unexpected end of JSON input" al parsear un cuerpo inexistente.
   if (res.status === 204) return undefined as T;
-  return (await res.json()) as T;
+  const text = await res.text();
+  return (text ? JSON.parse(text) : undefined) as T;
 }
 
 /** Obtiene un token CSRF antes de operaciones que cambian estado. */
