@@ -17,11 +17,12 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await ensureCsrf();
-      await apiFetch('/auth/login', {
+      const user = await apiFetch<{ rol: 'ADMIN' | 'SECRETARIA' | 'EMPLEADO' }>('/auth/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
       });
-      router.push('/pedir');
+      // El empleado va directo a su pedido; admin y secretaría al menú principal.
+      router.push(user.rol === 'EMPLEADO' ? '/pedir' : '/');
     } catch (err) {
       setError((err as ApiError).message ?? 'No se pudo iniciar sesión');
     } finally {
